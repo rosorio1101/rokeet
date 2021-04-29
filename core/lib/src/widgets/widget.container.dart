@@ -20,8 +20,10 @@ class RVerticalContainerWidgetBuilder
   @override
   Widget build(Rokeet rokeet, RVerticalContainerWidget widget) {
     List<Row> children = widget.children!
-        .map((child) => Row(
-              children: [rokeet.buildWidget(child)],
+        .map((child) => rokeet.buildWidget(child))
+        .where((element) => element != null)
+        .map((e) => Row(
+              children: [e!],
             ))
         .toList(growable: false);
     return Column(

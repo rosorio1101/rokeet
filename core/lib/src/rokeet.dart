@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'errors.dart';
+import 'registry.dart';
 import 'network/network.dart';
 import 'actions/actions.dart';
 import 'pages/page.dart';
@@ -21,8 +22,6 @@ class RokeetConfig {
 
 class Rokeet {
   static final Rokeet _instance = Rokeet._internal();
-  static Map<String, RWidgetBuilder> widgetBuilders = Map();
-  static Map<String, RActionPerformer> actionPerformers = Map();
 
   factory Rokeet() {
     return _instance;
@@ -32,6 +31,9 @@ class Rokeet {
 
   RokeetConfig? _config;
   final RokeetApi? api;
+
+  final Registry<RWidgetBuilder> _widgetBuilderRegistry = WidgetBuilderRegistry();
+  final Registry<RActionPerformer> _actionPerformerRegistry = ActionPerformerRegistry();
 
   RState? currentState;
   BuildContext? currentContext;
@@ -45,11 +47,11 @@ class Rokeet {
   }
 
   void _registerWidgetBuilder(String key, RWidgetBuilder builder) {
-    widgetBuilders[key] = builder;
+    _widgetBuilderRegistry.register(key, builder);
   }
 
   void _registerActionPerformer(String key, RActionPerformer performer) {
-    actionPerformers[key] = performer;
+    _actionPerformerRegistry.register(key, performer);
   }
 
   static Rokeet init(RokeetConfig config, RState initState) {
@@ -83,30 +85,32 @@ class Rokeet {
   }
 
   void performAction(RAction action) {
-    Iterable<RActionPerformer> possiblePerformers = actionPerformers.entries
-        .where((entry) => action.type == entry.key)
-        .map((e) => e.value);
+    var type = action.type;
 
-    if (possiblePerformers.isEmpty) {
-      log('No performers found for ${action.type}');
+    if (type == null) {
+      throw IllegalStateError("Action type must not be null");
+    }
+
+    RActionPerformer? possiblePerformer = _actionPerformerRegistry.get(type!);
+    if(possiblePerformer == null) {
+      log('Performer for $type not found');
       return;
     }
 
-    possiblePerformers.forEach((performer) {
-      performer.performAction(this, action);
-    });
+    possiblePerformer.performAction(this, action);
   }
 
-  Widget buildWidget(RWidget widget) {
-    if (widget.uiType == null) {
+  Widget? buildWidget(RWidget widget) {
+    var uiType = widget.uiType;
+    if (uiType == null) {
       throw IllegalStateError("Widget uiType must not be null");
     }
-    Iterable<RWidgetBuilder> possibleBuilders = widgetBuilders.entries
-        .where((entry) => widget.uiType == entry.key)
-        .map((e) => e.value);
-    if (possibleBuilders.isEmpty) {
-      throw NoBuilderFoundError(widget.uiType!);
+    RWidgetBuilder? builder = _widgetBuilderRegistry.get(uiType!);
+
+    if (builder == null) {
+      log('Builder for $uiType not found');
+      return null;
     }
-    return possibleBuilders.first.build(this, widget);
+    return builder.build(this, widget);
   }
 }
