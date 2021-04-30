@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 
-import 'package:http/http.dart';
+import 'package:http/http.dart' as http;
 import '../model.dart';
 import 'network.code.dart';
 import 'network.error.dart';
@@ -42,7 +42,7 @@ class RokeetApi {
     log("GET: $url");
     isLoading = true;
     try {
-      final Response response = await get(Uri.parse(url));
+      final http.Response response = await http.get(Uri.parse(url));
       isLoading = false;
       switch (response.statusCode) {
         case HTTP_STATUS_CODE_OK:

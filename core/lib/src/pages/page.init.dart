@@ -16,12 +16,12 @@ class RokeetInitPage extends AbstractRokeetPage {
 
 class _RokeetInitPageState extends RState<RokeetInitPage, RInit> {
   @override
-  void initState() {
+  void initState() async {
     super.initState();
     if (widget.config == null) {
       throw IllegalStateError("config must not be null");
     }
-    rokeet = Rokeet.init(widget.config!, this);
+    rokeet = await Rokeet.init(widget.config!, this);
   }
 
   @override

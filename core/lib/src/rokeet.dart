@@ -30,10 +30,15 @@ class Rokeet {
   Rokeet._internal() : api = RokeetApi("http://192.168.1.92:3000");
 
   RokeetConfig? _config;
-  final RokeetApi? api;
+  @visibleForTesting
+  RokeetApi? api;
 
-  final Registry<RWidgetBuilder> _widgetBuilderRegistry = WidgetBuilderRegistry();
-  final Registry<RActionPerformer> _actionPerformerRegistry = ActionPerformerRegistry();
+  @visibleForTesting
+  final Registry<RWidgetBuilder> widgetBuilderRegistry =
+      WidgetBuilderRegistry();
+  @visibleForTesting
+  final Registry<RActionPerformer> actionPerformerRegistry =
+      ActionPerformerRegistry();
 
   RState? currentState;
   BuildContext? currentContext;
@@ -47,22 +52,22 @@ class Rokeet {
   }
 
   void _registerWidgetBuilder(String key, RWidgetBuilder builder) {
-    _widgetBuilderRegistry.register(key, builder);
+    widgetBuilderRegistry.register(key, builder);
   }
 
   void _registerActionPerformer(String key, RActionPerformer performer) {
-    _actionPerformerRegistry.register(key, performer);
+    actionPerformerRegistry.register(key, performer);
   }
 
-  static Rokeet init(RokeetConfig config, RState initState) {
+  static Future<Rokeet> init(RokeetConfig config, RState initState) async {
     var rokeet = Rokeet();
     rokeet.currentState = initState;
     rokeet._configure(config);
-    rokeet._init();
+    await rokeet._init();
     return rokeet;
   }
 
-  void _init() async {
+  Future<void> _init() async {
     final map = Map<String, String>();
     map["client_id"] = _config!.clientId!;
     map["client_secret"] = _config!.clientSecret!;
@@ -91,8 +96,8 @@ class Rokeet {
       throw IllegalStateError("Action type must not be null");
     }
 
-    RActionPerformer? possiblePerformer = _actionPerformerRegistry.get(type!);
-    if(possiblePerformer == null) {
+    RActionPerformer? possiblePerformer = actionPerformerRegistry.get(type);
+    if (possiblePerformer == null) {
       log('Performer for $type not found');
       return;
     }
@@ -105,7 +110,7 @@ class Rokeet {
     if (uiType == null) {
       throw IllegalStateError("Widget uiType must not be null");
     }
-    RWidgetBuilder? builder = _widgetBuilderRegistry.get(uiType!);
+    RWidgetBuilder? builder = widgetBuilderRegistry.get(uiType);
 
     if (builder == null) {
       log('Builder for $uiType not found');
