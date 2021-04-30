@@ -1,16 +1,24 @@
-# rokeet_ui
+# Rokeet UI
 
-A new Flutter project.
+A Server-Driven UI framework.
 
-## Getting Started
+## Configure Mockoon server
 
-This project is a starting point for a Flutter application.
+### Install Mockoon:
 
-A few resources to get you started if this is your first Flutter project:
+#### Mac OSX
+```
+brew install --cask mockoon
+```
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+### Setup Mockoon
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Import the `mockoon_rokeet_server.json` on your Mockoon App.
+
+## Run 
+
+#### Android
+
+```
+flutter pub run 
+```
