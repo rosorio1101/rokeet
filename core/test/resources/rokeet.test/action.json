@@ -1,0 +1,7 @@
+{
+  "type": "navigate",
+  "data": {
+    "target": "some_target",
+    "force": false
+  }
+}
