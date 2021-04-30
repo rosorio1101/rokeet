@@ -27,7 +27,7 @@ class Rokeet {
     return _instance;
   }
 
-  Rokeet._internal() : api = RokeetApi("http://192.168.1.92:3000");
+  Rokeet._internal() : api = RokeetApi("http://dev.rokeet.io:3000");
 
   RokeetConfig? _config;
   @visibleForTesting
