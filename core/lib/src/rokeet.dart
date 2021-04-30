@@ -1,5 +1,6 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
+import 'package:rokeetui_core/src/constants.dart';
 import 'errors.dart';
 import 'registry.dart';
 import 'network/network.dart';
@@ -27,7 +28,7 @@ class Rokeet {
     return _instance;
   }
 
-  Rokeet._internal() : api = RokeetApi("http://dev.rokeet.io:3000");
+  Rokeet._internal() : api = RokeetApi(baseUrl);
 
   RokeetConfig? _config;
   @visibleForTesting
