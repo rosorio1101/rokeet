@@ -26,7 +26,7 @@ class _RokeetStepPageState extends RState<RokeetStepPage, RStep> {
   Widget build(BuildContext context) {
     rokeet.currentContext = context;
     if (isLoading() || data == null) {
-      return loadingWidget();
+      return getLoadingWidget();
     }
     return Scaffold(body: rokeet.buildWidget(data!.body!));
   }

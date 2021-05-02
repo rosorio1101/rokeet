@@ -28,7 +28,7 @@ class _RokeetInitPageState extends RState<RokeetInitPage, RInit> {
   @override
   Widget build(BuildContext context) {
     rokeet.currentContext = context;
-    return loadingWidget();
+    return getLoadingWidget();
   }
 
   @override

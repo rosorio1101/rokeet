@@ -14,7 +14,7 @@ abstract class RState<T extends AbstractRokeetPage, D> extends State<T> {
     return rokeet.isLoading();
   }
 
-  Widget loadingWidget() {
+  Widget getLoadingWidget() {
     return Scaffold(body: Center(child: CircularProgressIndicator()));
   }
 

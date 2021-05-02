@@ -16,6 +16,10 @@ class RStep {
   }
 }
 
+class RokeetApp {
+  String? initStep;
+}
+
 class RInit {
   RAction? action;
 
