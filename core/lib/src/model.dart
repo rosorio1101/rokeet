@@ -16,7 +16,7 @@ class RStep {
   }
 }
 
-class RokeetApp {
+class AppConfig {
   String? initStep;
 }
 

@@ -4,8 +4,8 @@ import 'model.dart';
 import 'pages/pages.dart';
 import 'rokeet.dart';
 
-class App extends AbstractRokeetPage {
-  App({
+class RokeetApp extends AbstractRokeetPage {
+  RokeetApp({
     Key? key,
     this.title = '',
     this.config,
@@ -15,10 +15,10 @@ class App extends AbstractRokeetPage {
   final RokeetConfig? config;
 
   @override
-  _RokeetAppState createState() => _RokeetAppState();
+  _AppState createState() => _AppState();
 }
 
-class _RokeetAppState extends RState<App, RokeetApp> {
+class _AppState extends RState<RokeetApp, AppConfig> {
   @override
   void initState() {
     rokeet = Rokeet();
@@ -64,7 +64,7 @@ class _RokeetAppState extends RState<App, RokeetApp> {
   }
 
   @override
-  void onDataLoaded(RokeetApp data) {
+  void onDataLoaded(AppConfig data) {
     setState(() {
       data = data;
     });
