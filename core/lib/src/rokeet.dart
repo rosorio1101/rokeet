@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:rokeetui_core/src/constants.dart';
 import 'errors.dart';
@@ -28,7 +29,7 @@ class Rokeet {
     return _instance;
   }
 
-  Rokeet._internal() : api = RokeetApi(baseUrl);
+  Rokeet._internal();
 
   RokeetConfig? _config;
   @visibleForTesting
@@ -41,8 +42,16 @@ class Rokeet {
   final Registry<RActionPerformer> actionPerformerRegistry =
       ActionPerformerRegistry();
 
-  RState? currentState;
-  BuildContext? currentContext;
+  late RState currentState;
+  late BuildContext currentContext;
+
+  bool get isLoading {
+    if (api == null) {
+      return true;
+    }
+
+    return api!.isLoading;
+  }
 
   void _configure(RokeetConfig config) {
     _config = config;
@@ -60,34 +69,26 @@ class Rokeet {
     actionPerformerRegistry.register(key, performer);
   }
 
-  static Future<Rokeet> init(RokeetConfig config, RState initState) async {
+  static Future<Rokeet> init(RokeetConfig config, RState initState, BuildContext context) async {
     var rokeet = Rokeet();
     rokeet.currentState = initState;
+    rokeet.currentContext  = context;
+    rokeet.api = RokeetApiBuilder(context, baseUrl)
+    .addInterceptor(LogInterceptor(requestBody: true,  responseBody: true))
+        .build();
     rokeet._configure(config);
     await rokeet._init();
     return rokeet;
   }
 
   Future<void> _init() async {
-    final map = Map<String, String>();
-    map["client_id"] = _config!.clientId!;
-    map["client_secret"] = _config!.clientSecret!;
-
-    var data = await api?.initRokeet(map);
-    currentState?.onDataLoaded(data);
+    var data = await api?.getApp(_config!.clientId!, _config!.clientSecret!);
+    currentState.onDataLoaded(data);
   }
 
   void getStep(String id) async {
-    var data = await api?.getStep(id, Map());
-    currentState?.onDataLoaded(data);
-  }
-
-  bool isLoading() {
-    if (api == null) {
-      return false;
-    }
-
-    return api!.isLoading;
+    var data = await api?.getStep(id);
+    currentState.onDataLoaded(data);
   }
 
   void performAction(RAction action) {

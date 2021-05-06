@@ -8,11 +8,9 @@ abstract class AbstractRokeetPage extends StatefulWidget {
 
 abstract class RState<T extends AbstractRokeetPage, D> extends State<T> {
   D? data;
-  late Rokeet rokeet;
+  final Rokeet rokeet = Rokeet();
 
-  bool isLoading() {
-    return rokeet.isLoading();
-  }
+  bool get isLoading => rokeet.isLoading;
 
   Widget getLoadingWidget() {
     return Scaffold(body: Center(child: CircularProgressIndicator()));

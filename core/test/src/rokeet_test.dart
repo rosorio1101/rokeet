@@ -5,7 +5,7 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:rokeetui_core/core.dart';
 import 'package:rokeetui_core/src/model.dart';
-import 'package:rokeetui_core/src/network/network.api.dart';
+import 'package:rokeetui_core/src/network/rokeet_api.dart';
 import 'package:rokeetui_core/src/pages/page.dart';
 import 'package:test/test.dart';
 

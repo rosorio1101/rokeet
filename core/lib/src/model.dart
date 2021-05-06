@@ -17,7 +17,14 @@ class RStep {
 }
 
 class AppConfig {
+  AppConfig(this.initStep);
   String? initStep;
+
+  factory AppConfig.fromJson(Map<String, dynamic> json){
+    return AppConfig(
+      json['init_step']
+    );
+  }
 }
 
 class RInit {

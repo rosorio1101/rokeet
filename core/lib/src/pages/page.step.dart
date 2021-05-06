@@ -17,18 +17,19 @@ class _RokeetStepPageState extends RState<RokeetStepPage, RStep> {
   @override
   void initState() {
     super.initState();
-    rokeet = Rokeet();
     rokeet.currentState = this;
+    rokeet.currentContext = context;
     rokeet.getStep(widget.stepId);
   }
 
   @override
   Widget build(BuildContext context) {
-    rokeet.currentContext = context;
-    if (isLoading() || data == null) {
+    if (isLoading || data == null) {
       return getLoadingWidget();
     }
-    return Scaffold(body: rokeet.buildWidget(data!.body!));
+    return Scaffold(body: SafeArea(
+      child: rokeet.buildWidget(data!.body!)!,
+    ));
   }
 
   @override

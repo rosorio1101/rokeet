@@ -20,22 +20,14 @@ class RokeetApp extends AbstractRokeetPage {
 
 class _AppState extends RState<RokeetApp, AppConfig> {
   @override
-  void initState() {
-    rokeet = Rokeet();
-
-    if (widget.config == null) {
-      throw IllegalStateError("Config must not be null");
-    }
-
-    Rokeet.init(widget.config!, this);
-    super.initState();
+  initState() {
+   super.initState();
+   Rokeet.init(widget.config!, this, context);
   }
 
   Widget _getHome() {
-    if (rokeet.isLoading() || data == null) {
-        return MaterialApp(
-          home: getLoadingWidget(),
-        );
+    if (rokeet.isLoading || data == null) {
+        return getLoadingWidget();
     } else {
       if(data!.initStep == null) {
         throw InitStepError();
@@ -66,7 +58,7 @@ class _AppState extends RState<RokeetApp, AppConfig> {
   @override
   void onDataLoaded(AppConfig data) {
     setState(() {
-      data = data;
+      this.data = data;
     });
   }
 }
