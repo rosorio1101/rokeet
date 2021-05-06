@@ -1,10 +1,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.rokeet_ui">
+          xmlns:tools="http://schemas.android.com/tools" package="com.example.rokeet_ui">
     <uses-permission android:name="android.permission.INTERNET"/>
    <application
-        android:label="rokeet_ui"
-        android:icon="@mipmap/ic_launcher"
-        android:networkSecurityConfig="@xml/network_security_config">
+           android:label="rokeet_ui"
+           android:icon="@mipmap/ic_launcher"
+           android:usesCleartextTraffic="true"
+           android:networkSecurityConfig="@xml/network_security_config" tools:targetApi="m">
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"

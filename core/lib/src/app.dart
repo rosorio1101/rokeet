@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'pages/page.init.dart';
-import 'pages/page.step.dart';
+import 'errors.dart';
+import 'model.dart';
 import 'pages/pages.dart';
 import 'rokeet.dart';
 
-class RokeetApp extends StatelessWidget {
+class RokeetApp extends AbstractRokeetPage {
   RokeetApp({
     Key? key,
     this.title = '',
@@ -15,24 +15,50 @@ class RokeetApp extends StatelessWidget {
   final RokeetConfig? config;
 
   @override
+  _AppState createState() => _AppState();
+}
+
+class _AppState extends RState<RokeetApp, AppConfig> {
+  @override
+  initState() {
+   super.initState();
+   Rokeet.init(widget.config!, this, context);
+  }
+
+  Widget _getHome() {
+    if (rokeet.isLoading || data == null) {
+        return getLoadingWidget();
+    } else {
+      if(data!.initStep == null) {
+        throw InitStepError();
+      }
+      return RokeetStepPage(stepId: data!.initStep!,);
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
-    if (config == null) {}
     return MaterialApp(
-      title: title,
-      home: RokeetInitPage(
-        config: config,
-      ),
+      title: widget.title,
+      home: _getHome(),
       onGenerateRoute: (settings) {
         var uri = Uri.parse(settings.name!);
         if (uri.pathSegments.first == 'steps' && uri.queryParameters['id'] != null) {
           var stepId = uri.queryParameters['id']!;
           return MaterialPageRoute(
               builder: (context) => RokeetStepPage(
-                    stepId: stepId,
-                  ));
+                stepId: stepId,
+              ));
         }
         return MaterialPageRoute(builder: (context) => RokeetUnknownPage());
       },
     );
+  }
+
+  @override
+  void onDataLoaded(AppConfig data) {
+    setState(() {
+      this.data = data;
+    });
   }
 }

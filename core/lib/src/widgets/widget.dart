@@ -26,6 +26,10 @@ abstract class RWidget<D> {
   D? parseData(Map<String, dynamic> json);
 }
 
+abstract class RWidgetDataParser<D> {
+  D? parse(Map<String, dynamic> json);
+}
+
 class RWidgetParser {
   static RWidget? parse(Map<String, dynamic> json) {
     switch(json['ui_type']) {

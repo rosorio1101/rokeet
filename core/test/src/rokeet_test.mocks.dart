@@ -12,7 +12,7 @@ import 'package:mockito/mockito.dart' as _i1;
 import 'package:rokeetui_core/src/actions/action.dart' as _i10;
 import 'package:rokeetui_core/src/actions/actions.performer.dart' as _i11;
 import 'package:rokeetui_core/src/model.dart' as _i5;
-import 'package:rokeetui_core/src/network/network.api.dart' as _i8;
+import 'package:rokeetui_core/src/network/rokeet_api.dart' as _i8;
 import 'package:rokeetui_core/src/pages/page.dart' as _i6;
 import 'package:rokeetui_core/src/rokeet.dart' as _i2;
 

@@ -27,14 +27,10 @@ class RNavigateAction extends RAction<NavigateActionData> {
 class RNavigateActionPerformer implements RActionPerformer<RNavigateAction> {
   @override
   void performAction(Rokeet rokeet, RNavigateAction action) {
-    if (rokeet.currentContext == null) {
-      throw IllegalStateError("Current context must not be null");
-    }
-
     if (action.data == null) {
       throw IllegalStateError("Action data must not be null");
     }
-    var context = rokeet.currentContext!;
+    var context = rokeet.currentContext;
     var data = action.data!;
     if (data.force == true) {
       var uri = Uri.parse(data.target!);
@@ -49,7 +45,7 @@ class RNavigateActionPerformer implements RActionPerformer<RNavigateAction> {
         ),
       );
     } else {
-      Navigator.pushNamed(rokeet.currentContext!, data.target!);
+      Navigator.pushNamed(rokeet.currentContext, data.target!);
     }
   }
 }
