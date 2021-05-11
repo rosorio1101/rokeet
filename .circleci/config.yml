@@ -1,4 +1,6 @@
 version: 2
+orbs:
+  codecov: codecov/codecov@1.0.2
 jobs:
   build:
     docker:
@@ -20,3 +22,6 @@ jobs:
 
       - store_artifacts:
           path: core/coverage/lcov.info
+      - codecov/upload:
+          name: Upload Coverage Report
+          file: core/coverage/lcov.info
