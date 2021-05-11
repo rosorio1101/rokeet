@@ -22,6 +22,6 @@ jobs:
 
       - store_artifacts:
           path: core/coverage/lcov.info
-      - codecov/upload:
-          name: Upload Coverage Report
+
+      - upload:
           file: core/coverage/lcov.info
