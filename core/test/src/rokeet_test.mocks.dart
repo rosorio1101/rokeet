@@ -30,6 +30,7 @@ class _FakeBuildContext extends _i1.Fake implements _i3.BuildContext {}
 class _FakeWidget extends _i1.Fake implements _i3.Widget {
   @override
   String toString({_i4.DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    // TODO: implement toString
     return super.toString();
   }
 }
@@ -37,13 +38,22 @@ class _FakeWidget extends _i1.Fake implements _i3.Widget {
 class _FakeDiagnosticsNode extends _i1.Fake implements _i4.DiagnosticsNode {
   @override
   String toString({_i4.TextTreeConfiguration? parentConfiguration, _i4.DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    // TODO: implement toString
     return super.toString();
   }
 }
 
-class _FakeRInit extends _i1.Fake implements _i5.RInit {}
+class _FakeAppConfig extends _i1.Fake implements _i5.AppConfig {}
 
 class _FakeRStep extends _i1.Fake implements _i5.RStep {}
+
+class _FakeInheritedWidget extends _i1.Fake implements _i3.InheritedWidget {
+  @override
+  String toString({_i4.DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    // TODO: implement toString
+    return super.toString();
+  }
+}
 
 /// A class which mocks [RState].
 ///
@@ -61,9 +71,9 @@ class MockRState<T extends _i6.AbstractRokeetPage, D> extends _i1.Mock
   _i2.Rokeet get rokeet => (super.noSuchMethod(Invocation.getter(#rokeet),
       returnValue: _FakeRokeet()) as _i2.Rokeet);
   @override
-  set rokeet(_i2.Rokeet? _rokeet) =>
-      super.noSuchMethod(Invocation.setter(#rokeet, _rokeet),
-          returnValueForMissingStub: null);
+  bool get isLoading =>
+      (super.noSuchMethod(Invocation.getter(#isLoading), returnValue: false)
+          as bool);
   @override
   T get widget =>
       (super.noSuchMethod(Invocation.getter(#widget), returnValue: null) as T);
@@ -76,12 +86,8 @@ class MockRState<T extends _i6.AbstractRokeetPage, D> extends _i1.Mock
       (super.noSuchMethod(Invocation.getter(#mounted), returnValue: false)
           as bool);
   @override
-  bool isLoading() =>
-      (super.noSuchMethod(Invocation.method(#isLoading, []), returnValue: false)
-          as bool);
-  @override
-  _i3.Widget loadingWidget() =>
-      (super.noSuchMethod(Invocation.method(#loadingWidget, []),
+  _i3.Widget getLoadingWidget() =>
+      (super.noSuchMethod(Invocation.method(#getLoadingWidget, []),
           returnValue: _FakeWidget()) as _i3.Widget);
   @override
   void onDataLoaded(D? data) =>
@@ -154,13 +160,13 @@ class MockRokeetApi extends _i1.Mock implements _i8.RokeetApi {
       super.noSuchMethod(Invocation.setter(#isLoading, _isLoading),
           returnValueForMissingStub: null);
   @override
-  _i9.Future<_i5.RInit> initRokeet(Map<String, String>? params) =>
-      (super.noSuchMethod(Invocation.method(#initRokeet, [params]),
-              returnValue: Future<_i5.RInit>.value(_FakeRInit()))
-          as _i9.Future<_i5.RInit>);
+  _i9.Future<_i5.AppConfig> getApp(String? clientId, String? clientSecret) =>
+      (super.noSuchMethod(Invocation.method(#getApp, [clientId, clientSecret]),
+              returnValue: Future<_i5.AppConfig>.value(_FakeAppConfig()))
+          as _i9.Future<_i5.AppConfig>);
   @override
-  _i9.Future<_i5.RStep> getStep(String? id, Map<String, String>? params) =>
-      (super.noSuchMethod(Invocation.method(#getStep, [id, params]),
+  _i9.Future<_i5.RStep> getStep(String? stepId) =>
+      (super.noSuchMethod(Invocation.method(#getStep, [stepId]),
               returnValue: Future<_i5.RStep>.value(_FakeRStep()))
           as _i9.Future<_i5.RStep>);
 }
@@ -178,4 +184,61 @@ class MockRActionPerformer<A extends _i10.RAction<dynamic>> extends _i1.Mock
   void performAction(_i2.Rokeet? rokeet, A? action) =>
       super.noSuchMethod(Invocation.method(#performAction, [rokeet, action]),
           returnValueForMissingStub: null);
+}
+
+/// A class which mocks [BuildContext].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockBuildContext extends _i1.Mock implements _i3.BuildContext {
+  MockBuildContext() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i3.Widget get widget => (super.noSuchMethod(Invocation.getter(#widget),
+      returnValue: _FakeWidget()) as _i3.Widget);
+  @override
+  bool get debugDoingBuild => (super
+          .noSuchMethod(Invocation.getter(#debugDoingBuild), returnValue: false)
+      as bool);
+  @override
+  _i3.InheritedWidget dependOnInheritedElement(_i3.InheritedElement? ancestor,
+          {Object? aspect}) =>
+      (super.noSuchMethod(
+          Invocation.method(
+              #dependOnInheritedElement, [ancestor], {#aspect: aspect}),
+          returnValue: _FakeInheritedWidget()) as _i3.InheritedWidget);
+  @override
+  void visitAncestorElements(bool Function(_i3.Element)? visitor) =>
+      super.noSuchMethod(Invocation.method(#visitAncestorElements, [visitor]),
+          returnValueForMissingStub: null);
+  @override
+  void visitChildElements(_i3.ElementVisitor? visitor) =>
+      super.noSuchMethod(Invocation.method(#visitChildElements, [visitor]),
+          returnValueForMissingStub: null);
+  @override
+  _i4.DiagnosticsNode describeElement(String? name,
+          {_i4.DiagnosticsTreeStyle? style =
+              _i4.DiagnosticsTreeStyle.errorProperty}) =>
+      (super.noSuchMethod(
+          Invocation.method(#describeElement, [name], {#style: style}),
+          returnValue: _FakeDiagnosticsNode()) as _i4.DiagnosticsNode);
+  @override
+  _i4.DiagnosticsNode describeWidget(String? name,
+          {_i4.DiagnosticsTreeStyle? style =
+              _i4.DiagnosticsTreeStyle.errorProperty}) =>
+      (super.noSuchMethod(
+          Invocation.method(#describeWidget, [name], {#style: style}),
+          returnValue: _FakeDiagnosticsNode()) as _i4.DiagnosticsNode);
+  @override
+  List<_i4.DiagnosticsNode> describeMissingAncestor(
+          {Type? expectedAncestorType}) =>
+      (super.noSuchMethod(
+          Invocation.method(#describeMissingAncestor, [],
+              {#expectedAncestorType: expectedAncestorType}),
+          returnValue: <_i4.DiagnosticsNode>[]) as List<_i4.DiagnosticsNode>);
+  @override
+  _i4.DiagnosticsNode describeOwnershipChain(String? name) =>
+      (super.noSuchMethod(Invocation.method(#describeOwnershipChain, [name]),
+          returnValue: _FakeDiagnosticsNode()) as _i4.DiagnosticsNode);
 }

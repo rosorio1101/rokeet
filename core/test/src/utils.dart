@@ -6,3 +6,7 @@ extension ReadFile on String {
 }
 
 dynamic loadJson(String fileName) => jsonDecode('test/resources/$fileName.json'.readFileAsString());
+
+class RokeetTestUtils {
+
+}

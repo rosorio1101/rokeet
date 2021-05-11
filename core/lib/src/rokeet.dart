@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:rokeetui_core/src/constants.dart';
+import 'package:rokeetui_core/src/model.dart';
 import 'errors.dart';
 import 'registry.dart';
 import 'network/network.dart';
@@ -29,7 +30,11 @@ class Rokeet {
     return _instance;
   }
 
-  Rokeet._internal();
+  Rokeet._internal()
+      : api = RokeetApiBuilder(baseUrl)
+            .addInterceptor(
+                LogInterceptor(requestBody: true, responseBody: true))
+            .build();
 
   RokeetConfig? _config;
   @visibleForTesting
@@ -69,20 +74,18 @@ class Rokeet {
     actionPerformerRegistry.register(key, performer);
   }
 
-  static Future<Rokeet> init(RokeetConfig config, RState initState, BuildContext context) async {
+  static Future<Rokeet> init(
+      RokeetConfig config, RState initState, BuildContext context) async {
     var rokeet = Rokeet();
     rokeet.currentState = initState;
-    rokeet.currentContext  = context;
-    rokeet.api = RokeetApiBuilder(context, baseUrl)
-    .addInterceptor(LogInterceptor(requestBody: true,  responseBody: true))
-        .build();
+    rokeet.currentContext = context;
     rokeet._configure(config);
     await rokeet._init();
     return rokeet;
   }
 
   Future<void> _init() async {
-    var data = await api?.getApp(_config!.clientId!, _config!.clientSecret!);
+    AppConfig? data = await api?.getApp(_config!.clientId!, _config!.clientSecret!);
     currentState.onDataLoaded(data);
   }
 

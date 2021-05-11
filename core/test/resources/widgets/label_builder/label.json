@@ -1,0 +1,7 @@
+{
+  "id": "myLabel",
+  "ui_type": "label",
+  "data": {
+    "text": "Hello World!"
+  }
+}
