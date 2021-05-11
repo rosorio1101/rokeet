@@ -23,5 +23,5 @@ jobs:
       - store_artifacts:
           path: core/coverage/lcov.info
 
-      - upload:
+      - codecov/upload:
           file: core/coverage/lcov.info
