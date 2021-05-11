@@ -1,6 +1,12 @@
 # Rokeet UI
-
 A Server-Driven UI framework.
+
+## Status
+
+| Lib | Status |
+|------|----------|
+| Core | [![codecov](https://codecov.io/gh/rosorio1101/rokeet_ui/branch/master/graph/badge.svg)](https://codecov.io/gh/rosorio1101/rokeet_ui)| 
+
 
 ## Configure Mockoon server
 

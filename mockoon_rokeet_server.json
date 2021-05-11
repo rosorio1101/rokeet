@@ -19,7 +19,7 @@
                         "responses": [
                             {
                                 "uuid": "",
-                                "body": "{\n  \"action\": {\n    \"type\": \"navigate\",\n    \"data\": {\n      \"target\": \"/steps?id=login\",\n      \"force\": true\n    }\n  }\n}",
+                                "body": "{\n  \"init_step\":\"login\"\n}",
                                 "latency": 0,
                                 "statusCode": 200,
                                 "label": "",
@@ -75,7 +75,7 @@
                         "responses": [
                             {
                                 "uuid": "",
-                                "body": "{\n  \"body\":{\n    \"id\":\"vertical_container1\",\n    \"ui_type\": \"vertical_container\",\n    \"data\": null,\n    \"children\":[\n      {\n        \"id\": \"label1\",\n        \"ui_type\":\"label\",\n        \"data\":{\n          \"text\": \"Login Page\"\n        }\n      },\n      {\n        \"id\": \"label1\",\n        \"ui_type\":\"label\",\n        \"data\":{\n          \"text\": \"Lorem Ipsum\"\n        }\n      },\n      {\n        \"id\": \"label1\",\n        \"ui_type\":\"label\",\n        \"data\":{\n          \"text\": \"piñera reqlo\"\n        }\n      },\n      {\n        \"id\":\"button\",\n        \"ui_type\":\"button\",\n        \"data\":{\n          \"text\": \"Click me!\",\n          \"action\": {\n            \"type\":\"navigate\",\n            \"data\":{\n              \"target\":\"/steps?id=home\",\n              \"force\": false\n            }\n          }\n        }\n      }\n      ]\n  }\n}",
+                                "body": "{\n  \"body\":{\n    \"id\":\"vertical_container1\",\n    \"ui_type\": \"vertical_container\",\n    \"data\": null,\n    \"children\":[\n      {\n        \"id\": \"label1\",\n        \"ui_type\":\"label\",\n        \"data\":{\n          \"text\": \"Login Page\"\n        }\n      },\n      {\n        \"id\": \"label1\",\n        \"ui_type\":\"label\",\n        \"data\":{\n          \"text\": \"Lorem Ipsum\"\n        }\n      },\n      {\n        \"id\": \"label1\",\n        \"ui_type\":\"label\",\n        \"data\":{\n          \"text\": \"kevin qlo a lo maldito esta para vos\"\n        }\n      },\n      {\n        \"id\":\"button\",\n        \"ui_type\":\"button\",\n        \"data\":{\n          \"text\": \"Click me!\",\n          \"action\": {\n            \"type\":\"navigate\",\n            \"data\":{\n              \"target\":\"/steps?id=home\",\n              \"force\": false\n            }\n          }\n        }\n      },\n      {\n        \"id\":\"button\",\n        \"ui_type\":\"button\",\n        \"data\":{\n          \"text\": \"Pupi perra del zetzo!\",\n          \"action\": {\n            \"type\":\"navigate\",\n            \"data\":{\n              \"target\":\"/steps?id=home\",\n              \"force\": false\n            }\n          }\n        }\n      }\n      ]\n  }\n}",
                                 "latency": 0,
                                 "statusCode": 200,
                                 "label": "",
@@ -140,7 +140,7 @@
                 ],
                 "proxyMode": false,
                 "proxyHost": "",
-                "https": false,
+                "https": true,
                 "cors": true,
                 "headers": [
                     {
