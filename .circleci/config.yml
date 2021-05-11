@@ -16,7 +16,7 @@ jobs:
 
       - run:
           name: Run the application tests
-          command: cd core && flutter test --converage
+          command: cd core && flutter test --coverage
 
       - store_artifacts:
           path: core/coverage/lcov.info
