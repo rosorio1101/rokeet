@@ -9,17 +9,17 @@ import '../utils.dart';
 @GenerateMocks([RState, BuildContext])
 void main() {
   RLabelWidgetBuilder? builder;
-  BuildContext? context;
+  Rokeet? rokeet;
   group('Widget Label Test', () {
     setUp(() {
       builder = RLabelWidgetBuilder();
+      rokeet = Rokeet();
     });
 
     testWidgets('Builder should build a Label with Data', (tester) async {
-      var rokeet = Rokeet();
       var label = RLabelWidget.fromJson(loadJson('widgets/label_builder/label'));
-      var labelWidget =  builder!.build(rokeet, label) as Text;
-      expect("Hello World!", labelWidget.data!);
+      var labelWidget =  builder!.build(rokeet!, label) as Text;
+      expect(label.data!.text, labelWidget.data!);
     });
   });
 }

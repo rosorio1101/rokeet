@@ -1,0 +1,14 @@
+{
+  "id": "button",
+  "ui_type": "button",
+  "data": {
+    "text": "Click Me!",
+    "action": {
+      "type": "navigate",
+      "data": {
+        "target": "/steps?id=home",
+        "force": false
+      }
+    }
+  }
+}
