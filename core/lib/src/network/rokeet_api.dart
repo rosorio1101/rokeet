@@ -36,9 +36,9 @@ class RokeetApi {
 }
 
 class RokeetApiBuilder {
-  RokeetApiBuilder(BuildContext context, String baseUrl)
+  RokeetApiBuilder(String baseUrl)
       : _dio = Dio(BaseOptions(baseUrl: baseUrl, headers: {
-          HttpHeaders.userAgentHeader: UserAgent.buildUserAgent(context)
+          HttpHeaders.userAgentHeader: UserAgent.buildUserAgent()
         }, ));
 
   final Dio _dio;

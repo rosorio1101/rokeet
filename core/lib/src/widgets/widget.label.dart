@@ -5,6 +5,7 @@ import '../rokeet.dart';
 
 class LabelData {
   String? text;
+
 }
 
 class RLabelWidget extends RWidget<LabelData> {
