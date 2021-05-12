@@ -16,7 +16,7 @@ void main() {
   BuildContext? context;
 
   void configureRInit() {
-    AppConfig init = AppConfig.fromJson(loadJson('rokeet.test/appconfig'));
+    AppConfig init = AppConfig.fromJson(loadJson('rokeet/appconfig'));
     final future = Future.value(init);
     when(mockApi?.getApp('client_id', 'client_secret'))
         .thenAnswer((_) => future);

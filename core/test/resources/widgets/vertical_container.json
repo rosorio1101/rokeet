@@ -1,0 +1,20 @@
+{
+  "id": "myLabel",
+  "ui_type": "vertical_container",
+  "children": [
+    {
+      "id": "myLabel1",
+      "ui_type": "label",
+      "data": {
+        "text": "Hello World!"
+      }
+    },
+    {
+      "id": "myLabel2",
+      "ui_type": "label",
+      "data": {
+        "text": "Hello World!"
+      }
+    }
+  ]
+}

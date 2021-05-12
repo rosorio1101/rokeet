@@ -15,7 +15,7 @@ void main() {
     });
 
     test("Builder should build a Button with Data", () {
-      var button = RButtonWidget.fromJson(loadJson('widgets/button_builder/button'));
+      var button = RButtonWidget.fromJson(loadJson('widgets/button'));
       var buttonWidget = builder!.build(rokeet!, button) as ElevatedButton;
       var buttonLabel = buttonWidget.child as Text;
       expect(button.data!.text, buttonLabel.data);
