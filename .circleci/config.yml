@@ -16,12 +16,20 @@ jobs:
     steps:
       - checkout
       - run:
+          name: Install junitreport
+          command: cd core && flutter pub global activate junitreport
+      - run:
           name: Run the application tests
-          command: cd core && flutter test --coverage
+          command: cd core && flutter test --coverage --reporter json > test_result.json
+      - run:
+          name: Generate XML Report
+          command: cd core && flutter pub global run junitreport:tojunit --input test_result.json --output TEST-Result.xml
       - store_artifacts:
           path: core/coverage/lcov.info
       - codecov/upload:
           file: core/coverage/lcov.info
+      - store_test_results:
+          path: core/TEST-Result.xml
   publish:
     docker:
       - image: fischerscode/flutter:stable
