@@ -14,9 +14,6 @@ jobs:
           name: Install junitreport
           command: cd core && flutter pub global activate junitreport
       - run:
-          name: Update PATH
-          command: export PATH="$PATH":"$HOME/.pub-cache/bin"
-      - run:
           name: Run the application tests
           command: cd core && flutter test --coverage
       - run:
