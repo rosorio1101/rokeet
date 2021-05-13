@@ -26,9 +26,9 @@ jobs:
           command: cd core && flutter test --coverage
       - run:
           name: Generate XML Report
-          command: export PATH="$PATH":"$HOME/.pub-cache/bin" && cd core && flutter test --machine | tojunit > TEST-Result.xml
+          command: export PATH="$PATH":"$HOME/.pub-cache/bin"  && mkdir test_result && cd core && flutter test --machine | tojunit > test_result/TEST-Result.xml
       - store_test_results:
-          path: core/TEST-Result.xml
+          path: core/test_result
       - store_artifacts:
           path: core/coverage/lcov.info
       - codecov/upload:
