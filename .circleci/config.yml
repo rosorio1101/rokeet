@@ -39,8 +39,6 @@ workflows:
     jobs:
       - build
       - check:
-          requires:
-            - build
           filters:
             branches:
               only:
