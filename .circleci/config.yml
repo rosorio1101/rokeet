@@ -19,11 +19,14 @@ jobs:
           name: Install junitreport
           command: cd core && flutter pub global activate junitreport
       - run:
+          name: Update PATH
+          command: export PATH="$PATH":"$HOME/.pub-cache/bin"
+      - run:
           name: Run the application tests
-          command: cd core && flutter test --coverage --reporter json > test_result.json
+          command: cd core && flutter test --coverage
       - run:
           name: Generate XML Report
-          command: cd core && flutter pub global run junitreport:tojunit --input test_result.json --output TEST-Result.xml
+          command: cd core && flutter test --machine | tojunit > TEST-Result.xml
       - store_test_results:
           path: core/TEST-Result.xml
       - store_artifacts:
