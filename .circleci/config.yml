@@ -2,7 +2,7 @@ version: 2.1
 orbs:
   codecov: codecov/codecov@1.0.2
 jobs:
-  build:
+  check:
     docker:
       - image: fischerscode/flutter:stable
     steps:
@@ -10,11 +10,6 @@ jobs:
       - run:
           name: Run Flutter doctor
           command: cd core && flutter doctor
-  check:
-    docker:
-      - image: fischerscode/flutter:stable
-    steps:
-      - checkout
       - run:
           name: Install junitreport
           command: cd core && flutter pub global activate junitreport
@@ -49,12 +44,7 @@ workflows:
   version: 2
   build:
     jobs:
-      - build
-      - check:
-          filters:
-            branches:
-              only:
-                - /^feature\/.*$/
+      - check
       - publish:
           requires:
             - check
