@@ -16,8 +16,9 @@ void main() {
 
     testWidgets('Builder should build a Label with Data', (tester) async {
       var label = RLabelWidget.fromJson(loadJson('widgets/label'));
-      var labelWidget =  builder!.build(rokeet!, label) as Text;
-      expect(label.data!.text, labelWidget.data!);
+      var labelWidget = builder!.build(rokeet!, label);
+      await tester.pumpWidget(labelWidget);
+      expect(find.text("Hello World!"), findsOneWidget);
     });
   });
 }

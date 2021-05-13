@@ -95,7 +95,7 @@ void main() {
 
       return Rokeet.init(config, mockState, context!).then((rokeet) {
         var widgetDefinition =
-            RWidgetParser.parse(loadJson('rokeet.test/widget'))!;
+            RWidgetParser.parse(loadJson('rokeet/widget'))!;
         var widget = rokeet.buildWidget(widgetDefinition);
         expect(widget, isNotNull);
         expect(widget, isA<Column>());
@@ -114,7 +114,7 @@ void main() {
           actionPerformers: performers);
       var mockState = MockRState();
       return Rokeet.init(config, mockState, context!).then((rokeet) {
-        var action = RActionParser.parse(loadJson('rokeet.test/action'))!;
+        var action = RActionParser.parse(loadJson('rokeet/action'))!;
         rokeet.performAction(action);
         verify(expectPerformer.performAction(rokeet, action)).called(1);
       });
