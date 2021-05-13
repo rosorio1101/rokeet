@@ -47,11 +47,9 @@ workflows:
                 - /^feature\/.*$/
   deploy:
     jobs:
-      - build
-      - check
       - publish:
           requires:
-            - build
+            - check
           filters:
             branches:
               only:
