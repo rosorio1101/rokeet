@@ -5,11 +5,11 @@ import '../rokeet.dart';
 
 class LabelData {
   String? text;
-
 }
 
 class RLabelWidget extends RWidget<LabelData> {
   static const TYPE = "label";
+
   RLabelWidget.fromJson(Map<String, dynamic> json) : super.fromJson(json);
 
   @override
@@ -23,6 +23,9 @@ class RLabelWidget extends RWidget<LabelData> {
 class RLabelWidgetBuilder extends RWidgetBuilder<RLabelWidget> {
   @override
   Widget build(Rokeet rokeet, RLabelWidget widget) {
-    return Text(widget.data!.text!);
+    return Text.rich(
+      TextSpan(text: widget.data!.text),
+      textDirection: TextDirection.ltr,
+    );
   }
 }

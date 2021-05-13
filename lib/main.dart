@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:rokeetui_core/core.dart';
+import 'package:rokeetui_core/rokeetui_core.dart';
 
 void main() {
   runApp(MyApp());

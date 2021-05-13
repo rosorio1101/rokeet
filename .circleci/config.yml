@@ -7,25 +7,58 @@ jobs:
       - image: fischerscode/flutter:stable
     steps:
       - checkout
-
       - run:
           name: Run Flutter doctor
           command: cd core && flutter doctor
-
+  check:
+    docker:
+      - image: fischerscode/flutter:stable
+    steps:
+      - checkout
+      - run:
+          name: Install junitreport
+          command: cd core && flutter pub global activate junitreport
+      - run:
+          name: Update PATH
+          command: export PATH="$PATH":"$HOME/.pub-cache/bin"
       - run:
           name: Run the application tests
           command: cd core && flutter test --coverage
-
+      - run:
+          name: Generate XML Report
+          command: export PATH="$PATH":"$HOME/.pub-cache/bin"  && cd core && mkdir test_result && flutter test --machine | tojunit > test_result/TEST-Result.xml
+      - store_test_results:
+          path: core/test_result
       - store_artifacts:
           path: core/coverage/lcov.info
-
       - codecov/upload:
           file: core/coverage/lcov.info
+
+  publish:
+    docker:
+      - image: fischerscode/flutter:stable
+    steps:
+      - checkout
+      - run:
+          name: Validate publish
+          command: cd core && flutter packages pub publish --dry-run
+      - run:
+          name: Publish
+          command: cd core && flutter packages pub publish --force
 workflows:
   version: 2
-  build-deploy:
+  build:
     jobs:
-      - build:
+      - build
+      - check:
           filters:
             branches:
-              only: master
+              only:
+                - /^feature\/.*$/
+      - publish:
+          requires:
+            - check
+          filters:
+            branches:
+              only:
+                - /^release\/.*$/

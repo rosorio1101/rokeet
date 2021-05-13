@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:rokeetui_core/core.dart';
+import 'package:rokeetui_core/rokeetui_core.dart';
 import 'package:rokeetui_core/src/widgets/widget.container.dart';
 import '../utils.dart';
 
@@ -15,10 +15,16 @@ void main() {
       builder = RVerticalContainerWidgetBuilder();
     });
 
-    test("should create vertical container with children", (){
-      var verticalContainer = RVerticalContainerWidget.fromJson(loadJson('widgets/vertical_container'));
-      var widget = builder!.build(rokeet!, verticalContainer) as Column;
-      expect(widget.children.length, 2);
+    testWidgets("should create vertical container with children",
+        (tester) async {
+      var verticalContainer = RVerticalContainerWidget.fromJson(
+          loadJson('widgets/vertical_container'));
+      var widget = builder!.build(rokeet!, verticalContainer);
+      var app = MaterialApp(
+        home: widget,
+      );
+      await tester.pumpWidget(app);
+      expect(find.text("Hello World!"), findsNWidgets(2));
     });
   });
 }

@@ -1,8 +1,8 @@
 name: rokeetui_core
-description: A new Flutter package project.
-version: 0.0.1
-author:
-homepage:
+description: A Server-Driven UI Framework
+version: 0.0.1-alpha01
+group: cl.rokeet
+repository: https://github.com/rosorio1101/rokeet_ui
 
 environment:
   sdk: ">=2.12.0 <3.0.0"
