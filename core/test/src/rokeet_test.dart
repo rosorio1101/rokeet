@@ -1,7 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
-import 'package:rokeetui_core/core.dart';
+import 'package:rokeetui_core/rokeetui_core.dart';
 import 'package:rokeetui_core/src/model.dart';
 import 'package:rokeetui_core/src/network/rokeet_api.dart';
 import 'package:rokeetui_core/src/pages/page.dart';

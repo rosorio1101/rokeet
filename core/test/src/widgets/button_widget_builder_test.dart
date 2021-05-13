@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:rokeetui_core/core.dart';
+import 'package:rokeetui_core/rokeetui_core.dart';
 import 'package:rokeetui_core/src/widgets/widget.button.dart';
 
 import '../utils.dart';

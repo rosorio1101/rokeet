@@ -1,4 +1,4 @@
-import 'package:rokeetui_core/core.dart';
+import 'package:rokeetui_core/rokeetui_core.dart';
 import 'package:rokeetui_core/src/widgets/widget.button.dart';
 
 abstract class RWidget<D> {
