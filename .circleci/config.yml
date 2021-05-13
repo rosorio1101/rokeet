@@ -9,16 +9,30 @@ jobs:
       - checkout
       - run:
           name: Run Flutter doctor
-          command: cd core && flutter doctor
+          command: |
+            cd core
+            flutter doctor
       - run:
           name: Install junitreport
-          command: cd core && flutter pub global activate junitreport
+          command: |
+            cd core
+            flutter pub global activate junitreport
+      - run:
+          name: Update PATH
+          command: |
+            echo 'export PATH=$PATH:$HOME/.pub-cache/bin' >> $BASH_ENV
+            source $BASH_ENV
       - run:
           name: Run the application tests
-          command: cd core && flutter test --coverage
+          command: |
+            cd core
+            flutter test --coverage
       - run:
           name: Generate XML Report
-          command: export PATH="$PATH":"$HOME/.pub-cache/bin"  && cd core && mkdir test_result && flutter test --machine | tojunit > test_result/TEST-Result.xml
+          command: |
+            cd core
+            mkdir test_result
+            flutter test --machine | tojunit > test_result/TEST-Result.xml
       - store_test_results:
           path: core/test_result
       - store_artifacts:
