@@ -37,6 +37,7 @@ workflows:
   version: 2
   build:
     jobs:
+      - build
       - check:
           requires:
             - build
@@ -46,6 +47,7 @@ workflows:
                 - /^feature\/.*$/
   deploy:
     jobs:
+      - build
       - check
       - publish:
           requires:
