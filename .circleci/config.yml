@@ -9,10 +9,14 @@ jobs:
       - checkout
       - run:
           name: Run Flutter doctor
-          command: cd core && flutter doctor
+          command: |
+            cd core
+            flutter doctor
       - run:
           name: Install junitreport
-          command: cd core && flutter pub global activate junitreport
+          command: |
+            cd core
+            flutter pub global activate junitreport
       - run:
           name: Update PATH
           command: |
