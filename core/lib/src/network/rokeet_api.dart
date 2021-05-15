@@ -1,9 +1,7 @@
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart';
-import 'package:flutter/cupertino.dart';
 
 import '../model.dart';
 import 'query_params.dart';
@@ -37,9 +35,10 @@ class RokeetApi {
 
 class RokeetApiBuilder {
   RokeetApiBuilder(String baseUrl)
-      : _dio = Dio(BaseOptions(baseUrl: baseUrl, headers: {
-          HttpHeaders.userAgentHeader: UserAgent.buildUserAgent()
-        }, ));
+      : _dio = Dio(BaseOptions(
+          baseUrl: baseUrl,
+          headers: {HttpHeaders.userAgentHeader: UserAgent.buildUserAgent()},
+        ));
 
   final Dio _dio;
 

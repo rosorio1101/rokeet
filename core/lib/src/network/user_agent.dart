@@ -1,7 +1,5 @@
 import 'dart:io';
 
-import 'package:flutter/cupertino.dart';
-
 class UserAgent {
   static String buildUserAgent() {
     return  '${_platform()}-${_version()}';
