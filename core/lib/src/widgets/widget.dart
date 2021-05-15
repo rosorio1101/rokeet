@@ -1,5 +1,5 @@
-import 'package:rokeetui_core/rokeetui_core.dart';
-import 'package:rokeetui_core/src/widgets/widget.button.dart';
+import 'package:rokeet_ui/rokeet_ui.dart';
+import 'package:rokeet_ui/src/widgets/widget_button.dart';
 
 abstract class RWidget<D> {
   String? id;

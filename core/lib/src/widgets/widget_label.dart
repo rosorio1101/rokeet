@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'widget.dart';
-import 'widget.builder.dart';
+import 'widget_builder.dart';
 import '../rokeet.dart';
 
 class LabelData {

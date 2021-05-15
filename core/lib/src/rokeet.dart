@@ -1,8 +1,8 @@
 import 'dart:developer';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:rokeetui_core/src/constants.dart';
-import 'package:rokeetui_core/src/model.dart';
+import 'package:rokeet_ui/src/constants.dart';
+import 'package:rokeet_ui/src/model.dart';
 import 'errors.dart';
 import 'registry.dart';
 import 'network/network.dart';

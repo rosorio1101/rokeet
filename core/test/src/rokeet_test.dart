@@ -1,10 +1,10 @@
 import 'package:flutter/widgets.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
-import 'package:rokeetui_core/rokeetui_core.dart';
-import 'package:rokeetui_core/src/model.dart';
-import 'package:rokeetui_core/src/network/rokeet_api.dart';
-import 'package:rokeetui_core/src/pages/page.dart';
+import 'package:rokeet_ui/rokeet_ui.dart';
+import 'package:rokeet_ui/src/model.dart';
+import 'package:rokeet_ui/src/network/rokeet_api.dart';
+import 'package:rokeet_ui/src/pages/page.dart';
 import 'package:test/test.dart';
 
 import 'rokeet_test.mocks.dart';

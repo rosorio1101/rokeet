@@ -191,13 +191,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.2.1"
-  rokeetui_core:
+  rokeet_ui:
     dependency: "direct main"
     description:
       path: core
       relative: true
     source: path
-    version: "0.0.1"
+    version: "0.0.1-alpha01"
   shared_preferences:
     dependency: transitive
     description:
