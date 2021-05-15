@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../actions/action.dart';
 import 'widget.dart';
-import 'widget.builder.dart';
+import 'widget_builder.dart';
 import '../rokeet.dart';
 
 class ButtonData {

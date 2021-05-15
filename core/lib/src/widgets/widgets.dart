@@ -1,5 +1,5 @@
 export 'widget.dart';
-export 'widget.builder.dart';
-export 'widget.container.dart';
-export 'widget.label.dart';
-export 'widget.button.dart';
+export 'widget_builder.dart';
+export 'widget_vertical_container.dart';
+export 'widget_label.dart';
+export 'widget_button.dart';

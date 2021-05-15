@@ -1,4 +1,4 @@
-name: rokeet_ui
+name: test_app
 description: A new Flutter project.
 
 # The following line prevents the package from being accidentally published to
@@ -23,7 +23,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  rokeetui_core: 
+  rokeet_ui:
     path: ./core/
 
 
