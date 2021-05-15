@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:rokeetui_core/rokeet_ui.dart';
+import 'package:rokeetui_core/rokeet_ui.dart';
+import 'package:rokeetui_core/src/model.dart';
 import 'errors.dart';
 import 'model.dart';
 import 'pages/pages.dart';
@@ -19,36 +22,37 @@ class RokeetApp extends AbstractRokeetPage {
 }
 
 class _AppState extends RState<RokeetApp, AppConfig> {
-  @override
-  initState() {
-   super.initState();
-   Rokeet.init(widget.config!, this, context);
-  }
 
-  Widget _getHome() {
-    if (rokeet.isLoading || data == null) {
-        return getLoadingWidget();
-    } else {
-      if(data!.initStep == null) {
-        throw InitStepError();
-      }
-      return RokeetStepPage(stepId: data!.initStep!,);
-    }
-  }
+  Widget _getHome(BuildContext context) => FutureBuilder<AppConfig?>(
+      future: Rokeet.init(widget.config!, this, context),
+      builder: (context, snapshot) {
+        if(snapshot.connectionState != ConnectionState.done) {
+          return getLoadingWidget();
+        }
+
+        var data = snapshot.data;
+        if(data == null) {
+          return Center(
+            child: Text("Config not found"),
+          );
+        }
+        return RokeetStepPage(stepId: data.initStep!);
+      });
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: widget.title,
-      home: _getHome(),
+      home: _getHome(context),
       onGenerateRoute: (settings) {
         var uri = Uri.parse(settings.name!);
-        if (uri.pathSegments.first == 'steps' && uri.queryParameters['id'] != null) {
+        if (uri.pathSegments.first == 'steps' &&
+            uri.queryParameters['id'] != null) {
           var stepId = uri.queryParameters['id']!;
           return MaterialPageRoute(
               builder: (context) => RokeetStepPage(
-                stepId: stepId,
-              ));
+                    stepId: stepId,
+                  ));
         }
         return MaterialPageRoute(builder: (context) => RokeetUnknownPage());
       },
