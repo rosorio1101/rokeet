@@ -1,8 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:rokeetui_core/rokeet_ui.dart';
-import 'package:rokeetui_core/rokeet_ui.dart';
-import 'package:rokeetui_core/src/model.dart';
-import 'errors.dart';
 import 'model.dart';
 import 'pages/pages.dart';
 import 'rokeet.dart';
