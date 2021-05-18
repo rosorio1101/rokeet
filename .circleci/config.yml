@@ -39,6 +39,7 @@ jobs:
           path: core/coverage/lcov.info
       - codecov/upload:
           file: core/coverage/lcov.info
+          flags: unittests
 
   publish:
     docker:
