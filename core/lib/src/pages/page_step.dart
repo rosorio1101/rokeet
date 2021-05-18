@@ -38,11 +38,4 @@ class _RokeetStepPageState extends RState<RokeetStepPage, RStep> {
   @override
   Widget build(BuildContext context) => _getPage();
 
-  @deprecated
-  @override
-  void onDataLoaded(RStep data) {
-    setState(() {
-      this.data = data;
-    });
-  }
 }

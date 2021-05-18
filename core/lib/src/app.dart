@@ -54,11 +54,4 @@ class _AppState extends RState<RokeetApp, AppConfig> {
       },
     );
   }
-
-  @override
-  void onDataLoaded(AppConfig data) {
-    setState(() {
-      this.data = data;
-    });
-  }
 }
