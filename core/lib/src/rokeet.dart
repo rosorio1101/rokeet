@@ -74,24 +74,21 @@ class Rokeet {
     actionPerformerRegistry.register(key, performer);
   }
 
-  static Future<Rokeet> init(
+  static Future<AppConfig?> init(
       RokeetConfig config, RState initState, BuildContext context) async {
     var rokeet = Rokeet();
     rokeet.currentState = initState;
     rokeet.currentContext = context;
     rokeet._configure(config);
-    await rokeet._init();
-    return rokeet;
+    return rokeet._init();
   }
 
-  Future<void> _init() async {
-    AppConfig? data = await api?.getApp(_config!.clientId!, _config!.clientSecret!);
-    currentState.onDataLoaded(data);
+  Future<AppConfig?> _init() async {
+    return await api?.getApp(_config!.clientId!, _config!.clientSecret!);
   }
 
-  void getStep(String id) async {
-    var data = await api?.getStep(id);
-    currentState.onDataLoaded(data);
+  Future<RStep?> getStep(String id) async {
+    return api?.getStep(id);
   }
 
   void performAction(RAction action) {

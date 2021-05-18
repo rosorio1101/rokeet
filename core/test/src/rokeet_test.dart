@@ -59,8 +59,8 @@ void main() {
           actionPerformers: Map());
       var mockState = MockRState();
 
-      return Rokeet.init(config, mockState, context!).then((rokeet) => expect(
-          rokeet.widgetBuilderRegistry.get(RVerticalContainerWidget.TYPE),
+      return Rokeet.init(config, mockState, context!).then((appConfig) => expect(
+          Rokeet().widgetBuilderRegistry.get(RVerticalContainerWidget.TYPE),
           equals(expectedBuilder)));
     });
 
@@ -76,8 +76,8 @@ void main() {
           actionPerformers: performers);
       var mockState = MockRState();
 
-      return Rokeet.init(config, mockState, context!).then((rokeet) => expect(
-          rokeet.actionPerformerRegistry.get(RNavigateAction.TYPE),
+      return Rokeet.init(config, mockState, context!).then((appConfig) => expect(
+          Rokeet().actionPerformerRegistry.get(RNavigateAction.TYPE),
           equals(expectPerformer)));
     });
 
@@ -93,7 +93,8 @@ void main() {
           actionPerformers: Map());
       var mockState = MockRState();
 
-      return Rokeet.init(config, mockState, context!).then((rokeet) {
+      return Rokeet.init(config, mockState, context!).then((appConfig) {
+        var rokeet = Rokeet();
         var widgetDefinition =
             RWidgetParser.parse(loadJson('rokeet/widget'))!;
         var widget = rokeet.buildWidget(widgetDefinition);
@@ -113,7 +114,8 @@ void main() {
           widgetBuilders: Map(),
           actionPerformers: performers);
       var mockState = MockRState();
-      return Rokeet.init(config, mockState, context!).then((rokeet) {
+      return Rokeet.init(config, mockState, context!).then((appConfig) {
+        var rokeet = Rokeet();
         var action = RActionParser.parse(loadJson('rokeet/action'))!;
         rokeet.performAction(action);
         verify(expectPerformer.performAction(rokeet, action)).called(1);

@@ -15,6 +15,4 @@ abstract class RState<T extends AbstractRokeetPage, D> extends State<T> {
   Widget getLoadingWidget() {
     return Scaffold(body: Center(child: CircularProgressIndicator()));
   }
-
-  void onDataLoaded(D data);
 }

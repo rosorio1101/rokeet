@@ -16,10 +16,11 @@ class RokeetApi {
 
   Future<AppConfig> getApp(String clientId, String clientSecret) async {
     isLoading = true;
+    var headers = await _getHeaders();
     Response response = await _dio.get("/apps", queryParameters: {
       QueryParams.clientId: clientId,
       QueryParams.clientSecret: clientSecret
-    });
+    }, options: Options(headers: headers));
     isLoading = false;
     return AppConfig.fromJson(response.data!);
   }
@@ -31,13 +32,19 @@ class RokeetApi {
     isLoading = false;
     return RStep.fromJson(response.data!);
   }
+
+  Future<Map<String, dynamic>> _getHeaders() async {
+    var userAgent = await UserAgent.buildUserAgent();
+    return {
+      HttpHeaders.userAgentHeader: userAgent
+    };
+  }
 }
 
 class RokeetApiBuilder {
   RokeetApiBuilder(String baseUrl)
       : _dio = Dio(BaseOptions(
           baseUrl: baseUrl,
-          headers: {HttpHeaders.userAgentHeader: UserAgent.buildUserAgent()},
         ));
 
   final Dio _dio;
@@ -53,12 +60,14 @@ class RokeetApiBuilder {
   }
 
   RokeetApi build() {
-    (_dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate =
-        (HttpClient client) {
-      client.badCertificateCallback =
-          (X509Certificate cert, String host, int port) => true;
-      return client;
-    };
+    if(_dio.httpClientAdapter is DefaultHttpClientAdapter) {
+      (_dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate =
+          (HttpClient client) {
+        client.badCertificateCallback =
+            (X509Certificate cert, String host, int port) => true;
+        return client;
+      };
+    }
     return RokeetApi(_dio);
   }
 }

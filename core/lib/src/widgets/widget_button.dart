@@ -28,8 +28,10 @@ class RButtonWidget extends RWidget<ButtonData> {
 class RButtonWidgetBuilder extends RWidgetBuilder<RButtonWidget> {
   @override
   Widget build(Rokeet rokeet, RButtonWidget widget) {
+    Key key = Key(widget.id!);
     var data = widget.data!;
     return ElevatedButton(
+      key: key,
       onPressed: () => {
         if (widget.data?.action != null) {rokeet.performAction(data.action!)}
       },

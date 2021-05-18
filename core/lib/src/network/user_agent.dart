@@ -1,8 +1,17 @@
 import 'dart:io';
 
+import 'package:package_info/package_info.dart';
+
 class UserAgent {
-  static String buildUserAgent() {
-    return  '${_platform()}-${_version()}';
+
+  static Future<String> buildUserAgent() async {
+    try {
+      PackageInfo packageInfo = await PackageInfo.fromPlatform();
+      return  'Rokeet_UI-${_platform()}-${packageInfo.version}-(${Platform.localeName})';
+    } catch(ex) {
+      return 'Rokeet_UI-${_platform()}-(${Platform.localeName})';
+    }
+
   }
 
   static String _platform() {
@@ -17,9 +26,5 @@ class UserAgent {
     } catch(e) {
       return 'Web';
     }
-  }
-
-  static String _version() {
-    return Platform.version;
   }
 }
