@@ -23,9 +23,11 @@ class RLabelWidget extends RWidget<LabelData> {
 class RLabelWidgetBuilder extends RWidgetBuilder<RLabelWidget> {
   @override
   Widget build(Rokeet rokeet, RLabelWidget widget) {
+    Key key = Key(widget.id!);
     return Text.rich(
       TextSpan(text: widget.data!.text),
       textDirection: TextDirection.ltr,
+      key: key,
     );
   }
 }

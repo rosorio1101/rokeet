@@ -8,32 +8,18 @@
         "id": "label1",
         "ui_type":"label",
         "data":{
-          "text": "Login Page"
+          "text": "Welcome to Rokeet!"
         }
       },
       {
-        "id": "label2",
-        "ui_type":"label",
-        "data":{
-          "text": "Email"
-        }
-      },
-      {
-        "id": "label3",
-        "ui_type":"label",
-        "data":{
-          "text": "Password"
-        }
-      },
-      {
-        "id":"login_button",
+        "id":"button",
         "ui_type":"button",
         "data":{
-          "text": "Login",
+          "text": "Click me!",
           "action": {
             "type":"navigate",
             "data":{
-              "target":"/steps?id=home",
+              "target":"/steps?id=step3",
               "force": false
             }
           }

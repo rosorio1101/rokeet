@@ -19,6 +19,7 @@ class RVerticalContainerWidgetBuilder
     extends RWidgetBuilder<RVerticalContainerWidget> {
   @override
   Widget build(Rokeet rokeet, RVerticalContainerWidget widget) {
+    Key key = Key(widget.id!);
     List<Row> children = widget.children!
         .map((child) => rokeet.buildWidget(child))
         .where((element) => element != null)
@@ -27,6 +28,7 @@ class RVerticalContainerWidgetBuilder
             ))
         .toList(growable: false);
     return Column(
+      key: key,
       children: children,
     );
   }
