@@ -69,5 +69,30 @@ void main() {
       expect(find.byType(Text), findsNWidgets(4));
       expect(find.byType(ElevatedButton), findsOneWidget);
     });
+
+    testWidgets("App should initialize successful", (tester) async {
+      var config = RokeetConfig(
+          clientId: 'client_id',
+          clientSecret: "client_secret",
+          widgetBuilders: {
+            "label": RLabelWidgetBuilder(),
+            "button": RButtonWidgetBuilder(),
+            "vertical_container": RVerticalContainerWidgetBuilder()
+          },
+          actionPerformers: Map());
+
+      Rokeet().api = mockApi;
+      when(mockApi?.getApp('client_id', 'client_secret'))
+          .thenAnswer((_) => Future.value(null));
+      await tester.pumpWidget(RokeetApp(
+          config: config
+      ));
+      await tester.pumpAndSettle(
+          Duration(seconds: 10), EnginePhase.build, Duration(minutes: 1)
+      );
+
+      expect(find.byType(Text), findsNWidgets(1));
+      expect(find.text('Config not found'), findsOneWidget);
+    });
   });
 }

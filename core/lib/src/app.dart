@@ -29,7 +29,7 @@ class _AppState extends RState<RokeetApp, AppConfig> {
         var data = snapshot.data;
         if(data == null) {
           return Center(
-            child: Text("Config not found"),
+            child: Text('Config not found'),
           );
         }
         return RokeetStepPage(stepId: data.initStep!);
