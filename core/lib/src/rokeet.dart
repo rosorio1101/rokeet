@@ -87,9 +87,8 @@ class Rokeet {
     return await api?.getApp(_config!.clientId!, _config!.clientSecret!);
   }
 
-  void getStep(String id) async {
-    var data = await api?.getStep(id);
-    currentState.onDataLoaded(data);
+  Future<RStep?> getStep(String id) async {
+    return api?.getStep(id);
   }
 
   void performAction(RAction action) {

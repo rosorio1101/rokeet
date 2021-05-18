@@ -33,10 +33,10 @@ class RokeetApi {
     return RStep.fromJson(response.data!);
   }
 
-  Future<Map<String, String>> _getHeaders() async {
+  Future<Map<String, dynamic>> _getHeaders() async {
     var userAgent = await UserAgent.buildUserAgent();
     return {
-      HttpHeaders.userAgentHeader: await UserAgent.buildUserAgent()
+      HttpHeaders.userAgentHeader: userAgent
     };
   }
 }
@@ -60,12 +60,14 @@ class RokeetApiBuilder {
   }
 
   RokeetApi build() {
-    (_dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate =
-        (HttpClient client) {
-      client.badCertificateCallback =
-          (X509Certificate cert, String host, int port) => true;
-      return client;
-    };
+    if(_dio.httpClientAdapter is DefaultHttpClientAdapter) {
+      (_dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate =
+          (HttpClient client) {
+        client.badCertificateCallback =
+            (X509Certificate cert, String host, int port) => true;
+        return client;
+      };
+    }
     return RokeetApi(_dio);
   }
 }

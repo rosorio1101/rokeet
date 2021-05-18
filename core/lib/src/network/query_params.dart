@@ -1,6 +1,6 @@
 
 class QueryParams {
-  static const clientId = 'clientId';
-  static const clientSecret = 'clientSecret';
+  static const clientId = 'client_id';
+  static const clientSecret = 'client_secret';
   static const id = 'id';
 }

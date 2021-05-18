@@ -5,8 +5,13 @@ import 'package:package_info/package_info.dart';
 class UserAgent {
 
   static Future<String> buildUserAgent() async {
-    PackageInfo packageInfo = await PackageInfo.fromPlatform();
-    return  'Rokeet_UI-${_platform()}-${packageInfo.version}-${Platform.localeName})';
+    try {
+      PackageInfo packageInfo = await PackageInfo.fromPlatform();
+      return  'Rokeet_UI-${_platform()}-${packageInfo.version}-(${Platform.localeName})';
+    } catch(ex) {
+      return 'Rokeet_UI-${_platform()}-(${Platform.localeName})';
+    }
+
   }
 
   static String _platform() {

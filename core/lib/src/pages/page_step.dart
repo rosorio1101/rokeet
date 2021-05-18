@@ -18,19 +18,27 @@ class _RokeetStepPageState extends RState<RokeetStepPage, RStep> {
     super.initState();
     rokeet.currentState = this;
     rokeet.currentContext = context;
-    rokeet.getStep(widget.stepId);
   }
+
+  Widget _getPage() => FutureBuilder<RStep?>(
+      future: rokeet.getStep(widget.stepId),
+      builder: (context, snapshot) {
+        if(snapshot.connectionState != ConnectionState.done) {
+          return getLoadingWidget();
+        }
+
+        var data = snapshot.data;
+        var body = rokeet.buildWidget(data!.body!)!;
+        return Scaffold(body: SafeArea(
+          child: body,
+        ));
+      }
+  );
 
   @override
-  Widget build(BuildContext context) {
-    if (isLoading || data == null) {
-      return getLoadingWidget();
-    }
-    return Scaffold(body: SafeArea(
-      child: rokeet.buildWidget(data!.body!)!,
-    ));
-  }
+  Widget build(BuildContext context) => _getPage();
 
+  @deprecated
   @override
   void onDataLoaded(RStep data) {
     setState(() {

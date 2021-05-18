@@ -16,5 +16,6 @@ abstract class RState<T extends AbstractRokeetPage, D> extends State<T> {
     return Scaffold(body: Center(child: CircularProgressIndicator()));
   }
 
+  @deprecated
   void onDataLoaded(D data);
 }

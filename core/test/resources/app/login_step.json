@@ -1,0 +1,44 @@
+{
+  "body":{
+    "id":"vertical_container1",
+    "ui_type": "vertical_container",
+    "data": null,
+    "children":[
+      {
+        "id": "label1",
+        "ui_type":"label",
+        "data":{
+          "text": "Login Page"
+        }
+      },
+      {
+        "id": "label1",
+        "ui_type":"label",
+        "data":{
+          "text": "Email"
+        }
+      },
+      {
+        "id": "label1",
+        "ui_type":"label",
+        "data":{
+          "text": "Password"
+        }
+      },
+      {
+        "id":"button",
+        "ui_type":"button",
+        "data":{
+          "text": "Login",
+          "action": {
+            "type":"navigate",
+            "data":{
+              "target":"/steps?id=home",
+              "force": false
+            }
+          }
+        }
+      }
+    ]
+  }
+}
