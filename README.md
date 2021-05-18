@@ -3,9 +3,9 @@ A Server-Driven UI framework.
 
 ## Status
 
-| Lib | Status |
-|------|----------|
-| Core | [![codecov](https://codecov.io/gh/rosorio1101/rokeet_ui/branch/master/graph/badge.svg)](https://codecov.io/gh/rosorio1101/rokeet_ui)| 
+| Lib | Build | Coverage |
+|------|--------|----------|
+| Core | [![CircleCI](https://circleci.com/gh/rosorio1101/rokeet_ui.svg?style=shield)](https://circleci.com/gh/rosorio1101/rokeet_ui) |[![codecov](https://codecov.io/gh/rosorio1101/rokeet_ui/branch/master/graph/badge.svg)](https://codecov.io/gh/rosorio1101/rokeet_ui)| 
 
 
 ## Configure Mockoon server
