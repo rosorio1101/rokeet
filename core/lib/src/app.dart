@@ -36,8 +36,8 @@ class _AppState extends RState<RokeetApp, AppConfig> {
       });
 
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
+  Widget buildPage(BuildContext context) {
+    return  MaterialApp(
       title: widget.title,
       home: _getHome(context),
       onGenerateRoute: (settings) {
@@ -47,8 +47,8 @@ class _AppState extends RState<RokeetApp, AppConfig> {
           var stepId = uri.queryParameters['id']!;
           return MaterialPageRoute(
               builder: (context) => RokeetStepPage(
-                    stepId: stepId,
-                  ));
+                stepId: stepId,
+              ));
         }
         return MaterialPageRoute(builder: (context) => RokeetUnknownPage());
       },

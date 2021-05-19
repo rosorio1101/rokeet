@@ -1,8 +1,9 @@
 import 'dart:developer';
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Stack;
 import 'package:rokeet_ui/src/constants.dart';
 import 'package:rokeet_ui/src/model.dart';
+import 'package:rokeet_ui/src/stack.dart';
 import 'errors.dart';
 import 'registry.dart';
 import 'network/network.dart';
@@ -47,8 +48,11 @@ class Rokeet {
   final Registry<RActionPerformer> actionPerformerRegistry =
       ActionPerformerRegistry();
 
-  late RState currentState;
-  late BuildContext currentContext;
+  Stack<RState> _stateStack = Stack();
+  Stack<BuildContext> _contextStack = Stack();
+
+  RState get currentState => _stateStack.top;
+  BuildContext get currentContext => _contextStack.top;
 
   bool get isLoading {
     if (api == null) {
@@ -77,8 +81,8 @@ class Rokeet {
   static Future<AppConfig?> init(
       RokeetConfig config, RState initState, BuildContext context) async {
     var rokeet = Rokeet();
-    rokeet.currentState = initState;
-    rokeet.currentContext = context;
+    rokeet.pushState(initState);
+    rokeet.pushContext(context);
     rokeet._configure(config);
     return rokeet._init();
   }
@@ -90,6 +94,14 @@ class Rokeet {
   Future<RStep?> getStep(String id) async {
     return api?.getStep(id);
   }
+
+  void pushState(RState state) => _stateStack.push(state);
+
+  void pushContext(BuildContext context) => _contextStack.push(context);
+
+  void popState() => _stateStack.pop;
+
+  void popContext() => _contextStack.pop;
 
   void performAction(RAction action) {
     var type = action.type;

@@ -45,7 +45,7 @@ class RNavigateActionPerformer implements RActionPerformer<RNavigateAction> {
         ),
       );
     } else {
-      Navigator.pushNamed(rokeet.currentContext, data.target!);
+      Navigator.pushNamed(context, data.target!);
     }
   }
 }

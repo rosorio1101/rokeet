@@ -2,10 +2,14 @@ import 'actions/action.dart';
 import 'widgets/widget.dart';
 
 class RStep {
+  String? id;
   RWidget? header;
   RWidget? body;
 
   RStep.fromJson(Map<String, dynamic> json) {
+    if(json['id'] != null) {
+      id = json['id'];
+    }
     if (json['head'] != null) {
       header = RWidgetParser.parse(json['head']);
     }

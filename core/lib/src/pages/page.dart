@@ -12,7 +12,29 @@ abstract class RState<T extends AbstractRokeetPage, D> extends State<T> {
 
   bool get isLoading => rokeet.isLoading;
 
+  @override
+  void dispose() {
+    super.dispose();
+    rokeet.popContext();
+    rokeet.popState();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    rokeet.pushState(this);
+  }
+
   Widget getLoadingWidget() {
     return Scaffold(body: Center(child: CircularProgressIndicator()));
   }
+
+  @override
+  Widget build(BuildContext context){
+    rokeet.pushContext(context);
+    return buildPage(context);
+  }
+
+  @protected
+  Widget buildPage(BuildContext context);
 }
