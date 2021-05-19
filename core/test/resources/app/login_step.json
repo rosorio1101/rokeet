@@ -1,4 +1,5 @@
 {
+  "id": "login_step",
   "body":{
     "id":"vertical_container1",
     "ui_type": "vertical_container",
