@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:rokeet_ui/rokeet_ui.dart';
-import 'package:rokeet_ui/src/widgets/widget_label.dart';
+import 'package:rokeet/core.dart';
+import 'package:rokeet/src/widgets/widget_label.dart';
 
 import '../utils.dart';
 

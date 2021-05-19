@@ -1,8 +1,7 @@
-name: rokeet_ui
+name: rokeet
 description: A Server-Driven UI Framework
 version: 0.0.1-alpha01
-group: cl.rokeet
-repository: https://github.com/rosorio1101/rokeet_ui
+repository: https://github.com/rosorio1101/rokeet
 
 environment:
   sdk: ">=2.12.0 <3.0.0"

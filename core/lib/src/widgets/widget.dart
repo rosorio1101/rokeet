@@ -1,5 +1,6 @@
-import 'package:rokeet_ui/rokeet_ui.dart';
-import 'package:rokeet_ui/src/widgets/widget_button.dart';
+import 'widget_button.dart';
+import 'widget_label.dart';
+import 'widget_vertical_container.dart';
 
 abstract class RWidget<D> {
   String? id;
@@ -10,16 +11,16 @@ abstract class RWidget<D> {
   RWidget.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     uiType = json['ui_type'];
-    if(json['data'] != null) {
+    if (json['data'] != null) {
       data = parseData(json['data']);
     }
 
     if (json['children'] != null) {
-      json['children'].map((child) => RWidgetParser.parse(child)).forEach((widget) => {
-        if(widget != null) {
-          children?.add(widget!)
-        }
-      });
+      json['children']
+          .map((child) => RWidgetParser.parse(child))
+          .forEach((widget) => {
+                if (widget != null) {children?.add(widget!)}
+              });
     }
   }
 
@@ -32,11 +33,15 @@ abstract class RWidgetDataParser<D> {
 
 class RWidgetParser {
   static RWidget? parse(Map<String, dynamic> json) {
-    switch(json['ui_type']) {
-      case RVerticalContainerWidget.TYPE: return RVerticalContainerWidget.fromJson(json);
-      case RLabelWidget.TYPE: return RLabelWidget.fromJson(json);
-      case RButtonWidget.TYPE: return RButtonWidget.fromJson(json);
-      default: return null;
+    switch (json['ui_type']) {
+      case RVerticalContainerWidget.TYPE:
+        return RVerticalContainerWidget.fromJson(json);
+      case RLabelWidget.TYPE:
+        return RLabelWidget.fromJson(json);
+      case RButtonWidget.TYPE:
+        return RButtonWidget.fromJson(json);
+      default:
+        return null;
     }
   }
 }

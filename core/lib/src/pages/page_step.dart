@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:rokeet_ui/src/model.dart';
+import 'package:rokeet/src/model.dart';
 
 import 'page.dart';
 
