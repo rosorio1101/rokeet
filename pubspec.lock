@@ -191,7 +191,7 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.2.1"
-  rokeet_ui:
+  rokeet:
     dependency: "direct main"
     description:
       path: core
@@ -252,6 +252,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.8.0"
+  stack:
+    dependency: transitive
+    description:
+      name: stack
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.2.1"
   stack_trace:
     dependency: transitive
     description:

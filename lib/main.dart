@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:rokeet_ui/rokeet_ui.dart';
+import 'package:rokeet/core.dart';
+
 
 void main() {
   runApp(MyApp());
