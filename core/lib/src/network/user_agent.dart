@@ -7,9 +7,9 @@ class UserAgent {
   static Future<String> buildUserAgent() async {
     try {
       PackageInfo packageInfo = await PackageInfo.fromPlatform();
-      return  'Rokeet_UI-${_platform()}-${packageInfo.version}-(${Platform.localeName})';
+      return  'rokeet-${_platform()}-${packageInfo.version}-(${Platform.localeName})';
     } catch(ex) {
-      return 'Rokeet_UI-${_platform()}-(${Platform.localeName})';
+      return 'rokeet-${_platform()}-(${Platform.localeName})';
     }
 
   }

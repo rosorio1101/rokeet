@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:rokeet_ui/src/pages/page_step.dart';
+import 'package:rokeet/src/pages/page_step.dart';
 import 'action.dart';
 import '../errors.dart';
 import '../rokeet.dart';

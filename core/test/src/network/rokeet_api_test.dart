@@ -4,8 +4,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http_mock_adapter/http_mock_adapter.dart';
-import 'package:rokeet_ui/src/network/network.dart';
-import 'package:rokeet_ui/src/network/query_params.dart';
+import 'package:rokeet/src/network/network.dart';
+import 'package:rokeet/src/network/query_params.dart';
 
 import '../utils.dart';
 
@@ -37,7 +37,7 @@ void main() {
             QueryParams.clientSecret: clientSecret
           },
           headers: {
-            HttpHeaders.userAgentHeader: "Rokeet_UI-Unknown-(en_US)"
+            HttpHeaders.userAgentHeader: "rokeet-Unknown-(en_US)"
           });
       var appConfig = await api.getApp(clientId, clientSecret);
       expect(appConfig, isNotNull);
@@ -57,7 +57,7 @@ void main() {
             QueryParams.id: 'login'
           },
           headers: {
-            HttpHeaders.userAgentHeader: "Rokeet_UI-Unknown-(en_US)"
+            HttpHeaders.userAgentHeader: "rokeet-Unknown-(en_US)"
           });
       var step = await api.getStep('login');
       expect(step, isNotNull);
