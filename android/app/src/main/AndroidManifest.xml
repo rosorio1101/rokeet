@@ -1,8 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          xmlns:tools="http://schemas.android.com/tools" package="com.example.rokeet_ui">
+          xmlns:tools="http://schemas.android.com/tools" package="com.example.rokeet">
     <uses-permission android:name="android.permission.INTERNET"/>
    <application
-           android:label="rokeet_ui"
+           android:label="rokeet"
            android:icon="@mipmap/ic_launcher"
            android:usesCleartextTraffic="true"
            android:networkSecurityConfig="@xml/network_security_config" tools:targetApi="m">
