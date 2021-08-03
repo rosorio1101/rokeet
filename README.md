@@ -5,7 +5,7 @@ A Server-Driven UI framework.
 
 | Lib | Build | Coverage |
 |------|--------|----------|
-| Core | [![CircleCI](https://circleci.com/gh/rosorio1101/rokeet_ui.svg?style=shield)](https://circleci.com/gh/rosorio1101/rokeet_ui) |[![codecov](https://codecov.io/gh/rosorio1101/rokeet_ui/branch/master/graph/badge.svg)](https://codecov.io/gh/rosorio1101/rokeet_ui)| 
+| Core | [![CircleCI](https://circleci.com/gh/rosorio1101/rokeet.svg?style=shield)](https://circleci.com/gh/rosorio1101/rokeet_ui) |[![codecov](https://codecov.io/gh/rosorio1101/rokeet_ui/branch/master/graph/badge.svg)](https://codecov.io/gh/rosorio1101/rokeet_ui)| 
 
 
 ## Configure Mockoon server
