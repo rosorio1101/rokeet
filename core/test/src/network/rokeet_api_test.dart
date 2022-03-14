@@ -24,8 +24,6 @@ void main() {
     test("get app should return status 200", () async {
       var clientId = "clientId";
       var clientSecret = "clientSecret";
-      MethodChannel('plugins.flutter.io/package_info')
-          .setMockMethodCallHandler((call) => Future.value());
       dioAdapter.onGet(
           "/apps",
           (request) => request.reply(
@@ -45,8 +43,6 @@ void main() {
     });
 
     test("get step should return status 200", () async {
-      MethodChannel('plugins.flutter.io/package_info')
-          .setMockMethodCallHandler((call) => Future.value());
       dioAdapter.onGet(
           "/steps",
               (request) => request.reply(
