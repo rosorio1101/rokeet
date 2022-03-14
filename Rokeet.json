@@ -1,0 +1,134 @@
+{
+  "uuid": "4235672e-e44c-4648-9212-ff443eaa4705",
+  "lastMigration": 19,
+  "name": "Rokeet",
+  "endpointPrefix": "",
+  "latency": 0,
+  "port": 3000,
+  "hostname": "0.0.0.0",
+  "routes": [
+    {
+      "uuid": "b00d112f-1859-41b1-946a-8e39cca23365",
+      "documentation": "",
+      "method": "get",
+      "endpoint": "apps",
+      "responses": [
+        {
+          "uuid": "6e90b054-d300-47e4-a19e-1af1c90611fc",
+          "body": "{\"init_step\":\"login\"}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "",
+          "headers": [],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "afef6d8e-bf4a-4f59-ac99-fe2a2950c5cc",
+      "documentation": "",
+      "method": "get",
+      "endpoint": "steps",
+      "responses": [
+        {
+          "uuid": "485f2db6-d6a5-4b58-8303-d6d8eda931ab",
+          "body": "{\n  \"id\": \"login_step\",\n  \"body\": {\n    \"id\": \"vertical_container1\",\n    \"ui_type\": \"vertical_container\",\n    \"children\": [\n      {\n        \"id\": \"label1\",\n        \"ui_type\": \"label\",\n        \"data\": {\n          \"text\": \"Login Page\"\n        }\n      },\n      {\n        \"id\": \"label1\",\n        \"ui_type\": \"label\",\n        \"data\": {\n          \"text\": \"Hola Fito\"\n        }\n      },\n      {\n        \"id\": \"label1\",\n        \"ui_type\": \"label\",\n        \"data\": {\n          \"text\": \"\"\n        }\n      },\n      {\n        \"id\": \"button\",\n        \"ui_type\": \"button\",\n        \"data\": {\n          \"text\": \"Login\",\n          \"action\": {\n            \"type\": \"navigate\",\n            \"data\": {\n              \"target\": \"/steps?id=home\",\n              \"force\": false\n            }\n          }\n        }\n      },\n      {\n        \"id\": \"button\",\n        \"ui_type\": \"button\",\n        \"data\": {\n          \"text\": \"Register\",\n          \"action\": {\n            \"type\": \"navigate\",\n            \"data\": {\n              \"target\": \"/steps?id=step3\",\n              \"force\": false\n            }\n          }\n        }\n      }\n    ]\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "",
+          "headers": [],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "7e909ddf-e664-4d68-93fd-a3bcfd26b5d5",
+          "body": "{\n  \"id\": \"welcome_step\",\n  \"body\": {\n    \"id\": \"vertical_container1\",\n    \"ui_type\": \"vertical_container\",\n    \"data\": null,\n    \"children\": [\n      {\n        \"id\": \"label1\",\n        \"ui_type\": \"label\",\n        \"data\": {\n          \"text\": \"Welcome!\"\n        }\n      },\n      {\n        \"id\": \"button\",\n        \"ui_type\": \"button\",\n        \"data\": {\n          \"text\": \"Click me!\",\n          \"action\": {\n            \"type\": \"navigate\",\n            \"data\": {\n              \"target\": \"/steps?id=step3\",\n              \"force\": false\n            }\n          }\n        }\n      }\n    ]\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "",
+          "headers": [],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "query",
+              "modifier": "id",
+              "value": "home",
+              "operator": "equals"
+            }
+          ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "13bd2e30-f003-4293-a8ed-20e31e53d116",
+          "body": "{\n  \"id\": \"home_step\",\n  \"body\": {\n    \"id\": \"vertical_container1\",\n    \"ui_type\": \"vertical_container\",\n    \"data\": null,\n    \"children\": [\n      {\n        \"id\": \"button\",\n        \"ui_type\": \"button\",\n        \"data\": {\n          \"text\": \"Click me!\"\n        }\n      },\n      {\n        \"id\": \"button\",\n        \"ui_type\": \"button\",\n        \"data\": {\n          \"text\": \"Click me!\"\n        }\n      },\n      {\n        \"id\": \"button\",\n        \"ui_type\": \"button\",\n        \"data\": {\n          \"text\": \"Click me!\"\n        }\n      },\n      {\n        \"id\": \"button\",\n        \"ui_type\": \"button\",\n        \"data\": {\n          \"text\": \"Click me!\"\n        }\n      }\n    ]\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "",
+          "headers": [],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "query",
+              "modifier": "id",
+              "value": "step3",
+              "operator": "equals"
+            }
+          ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    }
+  ],
+  "proxyMode": false,
+  "proxyHost": "",
+  "proxyRemovePrefix": false,
+  "tlsOptions": {
+    "enabled": false,
+    "type": "CERT",
+    "pfxPath": "",
+    "certPath": "",
+    "keyPath": "",
+    "caPath": "",
+    "passphrase": ""
+  },
+  "cors": true,
+  "headers": [
+    {
+      "key": "Content-Type",
+      "value": "application/json"
+    }
+  ],
+  "proxyReqHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "proxyResHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ]
+}
