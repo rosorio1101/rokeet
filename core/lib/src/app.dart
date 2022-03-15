@@ -4,40 +4,39 @@ import 'pages/pages.dart';
 import 'rokeet.dart';
 
 class RokeetApp extends AbstractRokeetPage {
-  RokeetApp({
+  RokeetApp(
+    this.rokeet, {
     Key? key,
     this.title = '',
-    this.config,
-  }) : super(key: key);
+  }) : super(rokeet, key: key);
 
   final String title;
-  final RokeetConfig? config;
+  final Rokeet rokeet;
 
   @override
   _AppState createState() => _AppState();
 }
 
 class _AppState extends RState<RokeetApp, AppConfig> {
-
   Widget _getHome(BuildContext context) => FutureBuilder<AppConfig?>(
-      future: Rokeet.init(widget.config!, this, context),
+      future: rokeet.init(this, context),
       builder: (context, snapshot) {
-        if(snapshot.connectionState != ConnectionState.done) {
+        if (snapshot.connectionState != ConnectionState.done) {
           return getLoadingWidget();
         }
 
         var data = snapshot.data;
-        if(data == null) {
+        if (data == null) {
           return Center(
             child: Text('Config not found'),
           );
         }
-        return RokeetStepPage(stepId: data.initStep!);
+        return RokeetStepPage(rokeet, stepId: data.initStep!);
       });
 
   @override
   Widget buildPage(BuildContext context) {
-    return  MaterialApp(
+    return MaterialApp(
       title: widget.title,
       home: _getHome(context),
       onGenerateRoute: (settings) {
@@ -47,8 +46,9 @@ class _AppState extends RState<RokeetApp, AppConfig> {
           var stepId = uri.queryParameters['id']!;
           return MaterialPageRoute(
               builder: (context) => RokeetStepPage(
-                stepId: stepId,
-              ));
+                    rokeet,
+                    stepId: stepId,
+                  ));
         }
         return MaterialPageRoute(builder: (context) => RokeetUnknownPage());
       },

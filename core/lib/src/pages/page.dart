@@ -3,12 +3,13 @@ import 'package:flutter/material.dart';
 import '../rokeet.dart';
 
 abstract class AbstractRokeetPage extends StatefulWidget {
-  AbstractRokeetPage({Key? key}) : super(key: key);
+  final Rokeet rokeet;
+  AbstractRokeetPage(this.rokeet, {Key? key}) : super(key: key);
 }
 
 abstract class RState<T extends AbstractRokeetPage, D> extends State<T> {
   D? data;
-  final Rokeet rokeet = Rokeet();
+  Rokeet get rokeet => widget.rokeet;
 
   bool get isLoading => rokeet.isLoading;
 

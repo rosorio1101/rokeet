@@ -13,7 +13,7 @@ void main() {
   group("App", () {
     RokeetApi? mockApi;
 
-    void configureMockApi() {
+    void _configureMockApi() {
       mockApi = MockRokeetApi();
       AppConfig init = AppConfig.fromJson(loadJson('app/appconfig'));
       RStep loginStep = RStep.fromJson(loadJson('app/login_step'));
@@ -25,12 +25,18 @@ void main() {
       when(mockApi?.getStep('login'))
           .thenAnswer((_) => Future.value(loginStep));
 
-      when(mockApi?.getStep('home'))
-          .thenAnswer((_) => Future.value(homeStep));
+      when(mockApi?.getStep('home')).thenAnswer((_) => Future.value(homeStep));
     }
 
-    setUp((){
-      configureMockApi();
+    Rokeet _buildRokeet(RokeetConfig config) {
+      return RokeetBuilder()
+          .withBaseUrl("http://localhost:3000")
+          .withConfig(config)
+          .build();
+    }
+
+    setUp(() {
+      _configureMockApi();
     });
     testWidgets("App should show loading", (tester) async {
       var config = RokeetConfig(
@@ -42,11 +48,9 @@ void main() {
             "vertical_container": RVerticalContainerWidgetBuilder()
           },
           actionPerformers: Map());
-
-      Rokeet().api = mockApi;
-      await tester.pumpWidget(RokeetApp(
-          config: config
-      ));
+      var rokeet = _buildRokeet(config);
+      rokeet.api = mockApi!;
+      await tester.pumpWidget(RokeetApp(rokeet));
 
       expect(find.byType(CircularProgressIndicator), findsOneWidget);
     });
@@ -62,13 +66,11 @@ void main() {
           },
           actionPerformers: Map());
 
-      Rokeet().api = mockApi;
-      await tester.pumpWidget(RokeetApp(
-        config: config
-      ));
+      var rokeet = _buildRokeet(config);
+      rokeet.api = mockApi!;
+      await tester.pumpWidget(RokeetApp(rokeet));
       await tester.pumpAndSettle(
-        Duration(seconds: 10), EnginePhase.build, Duration(minutes: 1)
-      );
+          Duration(seconds: 10), EnginePhase.build, Duration(minutes: 1));
 
       expect(find.byType(Text), findsNWidgets(4));
       expect(find.byType(ElevatedButton), findsOneWidget);
@@ -85,15 +87,13 @@ void main() {
           },
           actionPerformers: Map());
 
-      Rokeet().api = mockApi;
+      var rokeet = _buildRokeet(config);
+      rokeet.api = mockApi!;
       when(mockApi?.getApp('client_id', 'client_secret'))
           .thenAnswer((_) => Future.value(null));
-      await tester.pumpWidget(RokeetApp(
-          config: config
-      ));
+      await tester.pumpWidget(RokeetApp(rokeet));
       await tester.pumpAndSettle(
-          Duration(seconds: 10), EnginePhase.build, Duration(minutes: 1)
-      );
+          Duration(seconds: 10), EnginePhase.build, Duration(minutes: 1));
 
       expect(find.byType(Text), findsNWidgets(1));
       expect(find.text('Config not found'), findsOneWidget);
@@ -112,20 +112,18 @@ void main() {
             RNavigateAction.TYPE: RNavigateActionPerformer()
           });
 
-      Rokeet().api = mockApi;
-      await tester.pumpWidget(RokeetApp(
-          config: config
-      ));
+      var rokeet = _buildRokeet(config);
+      rokeet.api = mockApi!;
+      await tester.pumpWidget(RokeetApp(rokeet));
       await tester.pumpAndSettle(
-          Duration(seconds: 10), EnginePhase.build, Duration(minutes: 1)
-      );
+          Duration(seconds: 10), EnginePhase.build, Duration(minutes: 1));
 
-      ElevatedButton loginButton = tester.widget(find.widgetWithText(ElevatedButton, 'Login'));
+      ElevatedButton loginButton =
+          tester.widget(find.widgetWithText(ElevatedButton, 'Login'));
       loginButton.onPressed!();
 
       await tester.pumpAndSettle(
-          Duration(seconds: 10), EnginePhase.build, Duration(minutes: 1)
-      );
+          Duration(seconds: 10), EnginePhase.build, Duration(minutes: 1));
       expect(find.text('Welcome to Rokeet!'), findsOneWidget);
       expect(find.widgetWithText(ElevatedButton, 'Click me!'), findsOneWidget);
     });

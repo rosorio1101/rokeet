@@ -1,15 +1,14 @@
 import 'dart:developer';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart' hide Stack;
-import 'constants.dart';
-import 'model.dart';
-import 'stack.dart';
+import 'package:rokeet/core.dart';
+
 import 'errors.dart';
-import 'registry.dart';
+import 'model.dart';
 import 'network/network.dart';
-import 'actions/actions.dart';
-import 'pages/page.dart';
-import 'widgets/widgets.dart';
+import 'registry.dart';
+import 'stack.dart';
 
 class RokeetConfig {
   RokeetConfig(
@@ -25,21 +24,19 @@ class RokeetConfig {
 }
 
 class Rokeet {
-  static final Rokeet _instance = Rokeet._internal();
-
-  factory Rokeet() {
-    return _instance;
+  Rokeet._(String baseUrl, RokeetConfig config) {
+    api = RokeetApiBuilder(baseUrl)
+        .addInterceptor(LogInterceptor(requestBody: true, responseBody: true))
+        .build();
+    _configure(config);
   }
 
-  Rokeet._internal()
-      : api = RokeetApiBuilder(baseUrl)
-            .addInterceptor(
-                LogInterceptor(requestBody: true, responseBody: true))
-            .build();
-
-  RokeetConfig? _config;
   @visibleForTesting
-  RokeetApi? api;
+  Rokeet();
+
+  late RokeetConfig _config;
+  @visibleForTesting
+  late RokeetApi api;
 
   @visibleForTesting
   final Registry<RWidgetBuilder> widgetBuilderRegistry =
@@ -52,14 +49,11 @@ class Rokeet {
   Stack<BuildContext> _contextStack = Stack();
 
   RState get currentState => _stateStack.top;
+
   BuildContext get currentContext => _contextStack.top;
 
   bool get isLoading {
-    if (api == null) {
-      return true;
-    }
-
-    return api!.isLoading;
+    return api.isLoading;
   }
 
   void _configure(RokeetConfig config) {
@@ -78,21 +72,18 @@ class Rokeet {
     actionPerformerRegistry.register(key, performer);
   }
 
-  static Future<AppConfig?> init(
-      RokeetConfig config, RState initState, BuildContext context) async {
-    var rokeet = Rokeet();
-    rokeet.pushState(initState);
-    rokeet.pushContext(context);
-    rokeet._configure(config);
-    return rokeet._init();
+  Future<AppConfig?> init(RState initState, BuildContext context) async {
+    pushState(initState);
+    pushContext(context);
+    return _init();
   }
 
   Future<AppConfig?> _init() async {
-    return await api?.getApp(_config!.clientId!, _config!.clientSecret!);
+    return await api.getApp(_config.clientId!, _config.clientSecret!);
   }
 
   Future<RStep?> getStep(String id) async {
-    return api?.getStep(id);
+    return api.getStep(id);
   }
 
   void pushState(RState state) => _stateStack.push(state);
@@ -131,5 +122,33 @@ class Rokeet {
       return null;
     }
     return builder.build(this, widget);
+  }
+}
+
+class RokeetBuilder {
+  String? _baseUrl;
+  RokeetConfig? _config;
+
+  RokeetBuilder();
+
+  RokeetBuilder withBaseUrl(String baseUrl) {
+    this._baseUrl = baseUrl;
+    return this;
+  }
+
+  RokeetBuilder withConfig(RokeetConfig config) {
+    this._config = config;
+    return this;
+  }
+
+  Rokeet build() {
+    if (_baseUrl == null || _baseUrl?.isEmpty == true) {
+      throw NoBaseUrlDefinedError();
+    }
+
+    if (_config == null) {
+      _config = RokeetConfig();
+    }
+    return Rokeet._(this._baseUrl!, this._config!);
   }
 }

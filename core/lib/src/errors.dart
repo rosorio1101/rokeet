@@ -10,3 +10,5 @@ class NoBuilderFoundError extends Error{
 }
 
 class InitStepError extends Error {}
+
+class NoBaseUrlDefinedError extends Error {}
