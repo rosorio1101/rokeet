@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:rokeet/core.dart';
 import 'package:rokeet/src/model.dart';
 
 import 'page.dart';
 
 class RokeetStepPage extends AbstractRokeetPage {
-  RokeetStepPage({Key? key, this.stepId = ''}) : super(key: key);
+  final Rokeet rokeet;
+  RokeetStepPage(this.rokeet, {Key? key, this.stepId = ''}) : super(rokeet, key: key);
 
   final String stepId;
 

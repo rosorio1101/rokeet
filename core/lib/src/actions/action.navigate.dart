@@ -39,6 +39,7 @@ class RNavigateActionPerformer implements RActionPerformer<RNavigateAction> {
         context,
         PageRouteBuilder(
           pageBuilder: (context, animation1, animation2) => RokeetStepPage(
+            rokeet,
             stepId: id!,
           ),
           transitionDuration: Duration(seconds: 0),
