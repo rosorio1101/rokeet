@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:rokeet/core.dart';
+import 'package:rokeet/rokeet.dart';
 
 void main() {
   runApp(MyApp());
