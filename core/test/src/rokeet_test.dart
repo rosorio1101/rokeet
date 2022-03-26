@@ -1,10 +1,9 @@
 import 'package:flutter/widgets.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
-import 'package:rokeet/core.dart';
+import 'package:rokeet/rokeet.dart';
 import 'package:rokeet/src/model.dart';
 import 'package:rokeet/src/network/rokeet_api.dart';
-import 'package:rokeet/src/pages/page.dart';
 import 'package:test/test.dart';
 
 import 'rokeet_test.mocks.dart';

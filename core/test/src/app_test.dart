@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
-import 'package:rokeet/core.dart';
+import 'package:rokeet/rokeet.dart';
 import 'package:rokeet/src/model.dart';
 import 'package:rokeet/src/network/network.dart';
 

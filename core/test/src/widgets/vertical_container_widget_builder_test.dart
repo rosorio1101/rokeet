@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:rokeet/core.dart';
-import 'package:rokeet/src/widgets/widget_vertical_container.dart';
+import 'package:rokeet/rokeet.dart';
+
 import '../utils.dart';
 
 void main() {
