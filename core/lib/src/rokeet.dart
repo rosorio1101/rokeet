@@ -2,13 +2,14 @@ import 'dart:developer';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart' hide Stack;
-import 'package:rokeet/core.dart';
 
+import '../core.dart';
 import 'errors.dart';
 import 'model.dart';
 import 'network/network.dart';
 import 'registry.dart';
 import 'stack.dart';
+import 'storage/storage.dart';
 
 class RokeetConfig {
   RokeetConfig(
@@ -51,6 +52,10 @@ class Rokeet {
   RState get currentState => _stateStack.top;
 
   BuildContext get currentContext => _contextStack.top;
+
+  StorageManager _storageManager = StorageManager();
+
+  Storage get storage => _storageManager.getStorage();
 
   bool get isLoading {
     return api.isLoading;
