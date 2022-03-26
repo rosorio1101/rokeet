@@ -1,7 +1,9 @@
 import 'dart:collection';
 
 class StorageManager {
-  static StorageManager _instance = StorageManager();
+  static final StorageManager _instance = StorageManager._internal();
+
+  StorageManager._internal();
 
   factory StorageManager() {
     return _instance;
