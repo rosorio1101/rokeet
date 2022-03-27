@@ -1,6 +1,6 @@
 name: rokeet
 description: A Server-Driven UI Framework
-version: 0.0.1-alpha01
+version: 1.0.0
 repository: https://github.com/rosorio1101/rokeet
 
 environment:

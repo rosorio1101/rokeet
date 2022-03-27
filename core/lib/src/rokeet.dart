@@ -3,7 +3,7 @@ import 'dart:developer';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart' hide Stack;
 
-import '../core.dart';
+import '../rokeet.dart';
 import 'errors.dart';
 import 'model.dart';
 import 'network/network.dart';
