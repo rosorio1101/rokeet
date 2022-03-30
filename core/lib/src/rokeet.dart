@@ -20,8 +20,9 @@ class RokeetConfig {
 
   final String? clientId;
   final String? clientSecret;
-  final Map<String, RWidgetBuilder>? widgetBuilders;
-  final Map<String, RActionPerformer>? actionPerformers;
+  final Map<String, Map<RWidgetBuilder, RWidgetParserFunction>>? widgetBuilders;
+  final Map<String, Map<RActionPerformer, RActionParserFunction>>?
+      actionPerformers;
 }
 
 class Rokeet {
@@ -63,10 +64,15 @@ class Rokeet {
 
   void _configure(RokeetConfig config) {
     _config = config;
-    config.widgetBuilders?.entries
-        .forEach((e) => _registerWidgetBuilder(e.key, e.value));
+    config.widgetBuilders?.entries.forEach((e) => e.value.entries.forEach((w) {
+          _registerWidgetBuilder(e.key, w.key);
+          RWidgetParser.parsers[e.key] = w.value;
+        }));
     config.actionPerformers?.entries
-        .forEach((e) => _registerActionPerformer(e.key, e.value));
+        .forEach((e) => e.value.entries.forEach((a) {
+              _registerActionPerformer(e.key, a.key);
+              RActionParser.parsers[e.key] = a.value;
+            }));
   }
 
   void _registerWidgetBuilder(String key, RWidgetBuilder builder) {

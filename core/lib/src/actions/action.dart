@@ -1,4 +1,4 @@
-import 'action.navigate.dart';
+import 'dart:collection';
 
 abstract class RAction<D> {
   String? type;
@@ -6,7 +6,7 @@ abstract class RAction<D> {
 
   RAction.fromJson(Map<String, dynamic> json) {
     type = json['type'];
-    if(json['data'] != null) {
+    if (json['data'] != null) {
       data = parseData(json['data']);
     }
   }
@@ -14,13 +14,11 @@ abstract class RAction<D> {
   D parseData(Map<String, dynamic> json);
 }
 
-class RActionParser {
-  static RAction? parse(Map<String,dynamic> json) {
-    switch(json['type']) {
-      case RNavigateAction.TYPE:
-        return RNavigateAction.fromJson(json);
+typedef T? RActionParserFunction<T extends RAction>(Map<String, dynamic> json);
 
-      default: return null;
-    }
+class RActionParser {
+  static final Map<String, RActionParserFunction> parsers = LinkedHashMap();
+  static RAction? parse(Map<String, dynamic> json) {
+    return parsers[json['type']]?.call(json);
   }
 }

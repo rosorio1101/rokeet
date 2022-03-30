@@ -8,17 +8,44 @@ void main() {
   RVerticalContainerWidgetBuilder? builder;
   Rokeet? rokeet;
 
+  Map<String, Map<RWidgetBuilder, RWidgetParserFunction>> baseWidgets = {
+    RLabelWidget.TYPE: {RLabelWidgetBuilder(): RLabelWidget.jsonParser},
+    RButtonWidget.TYPE: {RButtonWidgetBuilder(): RButtonWidget.jsonParser},
+    RVerticalContainerWidget.TYPE: {
+      RVerticalContainerWidgetBuilder(): (json) =>
+          RVerticalContainerWidget.jsonParser(json)
+    }
+  };
+
+  Map<String, Map<RActionPerformer, RActionParserFunction>> baseActions = {
+    RNavigateAction.TYPE: {
+      RNavigateActionPerformer(): (json) => RNavigateAction.jsonParser(json)
+    }
+  };
+
   group("Vertical Container Widget Builder", () {
     setUp(() async {
-      rokeet = Rokeet();
-      rokeet?.widgetBuilderRegistry.register("label", RLabelWidgetBuilder());
+      var config = RokeetConfig(
+          clientId: 'client_id',
+          clientSecret: "client_secret",
+          widgetBuilders: baseWidgets,
+          actionPerformers: baseActions);
+      rokeet = RokeetBuilder()
+          .withConfig(config)
+          .withBaseUrl("http://test.com")
+          .build();
       builder = RVerticalContainerWidgetBuilder();
+      rokeet?.widgetBuilderRegistry.register("label", RLabelWidgetBuilder());
+      rokeet?.widgetBuilderRegistry
+          .register(RVerticalContainerWidget.TYPE, builder!);
     });
 
     testWidgets("should create vertical container with children",
         (tester) async {
-      var verticalContainer = RVerticalContainerWidget.fromJson(
-          loadJson('widgets/vertical_container'));
+      RWidgetParser.parsers[RVerticalContainerWidget.TYPE] =
+          RVerticalContainerWidget.jsonParser;
+      var verticalContainer = RVerticalContainerWidget.jsonParser(
+          loadJson('widgets/vertical_container'))!;
       var widget = builder!.build(rokeet!, verticalContainer);
       var app = MaterialApp(
         home: widget,

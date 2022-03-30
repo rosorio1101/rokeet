@@ -5,6 +5,7 @@ import 'package:mockito/mockito.dart';
 import 'package:rokeet/rokeet.dart';
 import 'package:rokeet/src/model.dart';
 import 'package:rokeet/src/network/network.dart';
+import 'package:rokeet/src/widgets/widget_vertical_container.dart';
 
 import 'rokeet_test.mocks.dart';
 import 'utils.dart';
@@ -35,20 +36,29 @@ void main() {
           .build();
     }
 
-    setUp(() {
-      _configureMockApi();
-    });
+    Map<String, Map<RWidgetBuilder, RWidgetParserFunction>> baseWidgets = {
+      RLabelWidget.TYPE: {RLabelWidgetBuilder(): RLabelWidget.jsonParser},
+      RButtonWidget.TYPE: {RButtonWidgetBuilder(): RButtonWidget.jsonParser},
+      RVerticalContainerWidget.TYPE: {
+        RVerticalContainerWidgetBuilder(): (json) =>
+            RVerticalContainerWidget.jsonParser(json)
+      }
+    };
+
+    Map<String, Map<RActionPerformer, RActionParserFunction>> baseActions = {
+      RNavigateAction.TYPE: {
+        RNavigateActionPerformer(): (json) => RNavigateAction.jsonParser(json)
+      }
+    };
+
     testWidgets("App should show loading", (tester) async {
       var config = RokeetConfig(
           clientId: 'client_id',
           clientSecret: "client_secret",
-          widgetBuilders: {
-            "label": RLabelWidgetBuilder(),
-            "button": RButtonWidgetBuilder(),
-            "vertical_container": RVerticalContainerWidgetBuilder()
-          },
+          widgetBuilders: baseWidgets,
           actionPerformers: Map());
       var rokeet = _buildRokeet(config);
+      _configureMockApi();
       rokeet.api = mockApi!;
       await tester.pumpWidget(RokeetApp(rokeet));
 
@@ -59,14 +69,11 @@ void main() {
       var config = RokeetConfig(
           clientId: 'client_id',
           clientSecret: "client_secret",
-          widgetBuilders: {
-            "label": RLabelWidgetBuilder(),
-            "button": RButtonWidgetBuilder(),
-            "vertical_container": RVerticalContainerWidgetBuilder()
-          },
+          widgetBuilders: baseWidgets,
           actionPerformers: Map());
 
       var rokeet = _buildRokeet(config);
+      _configureMockApi();
       rokeet.api = mockApi!;
       await tester.pumpWidget(RokeetApp(rokeet));
       await tester.pumpAndSettle(
@@ -80,11 +87,7 @@ void main() {
       var config = RokeetConfig(
           clientId: 'client_id',
           clientSecret: "client_secret",
-          widgetBuilders: {
-            "label": RLabelWidgetBuilder(),
-            "button": RButtonWidgetBuilder(),
-            "vertical_container": RVerticalContainerWidgetBuilder()
-          },
+          widgetBuilders: baseWidgets,
           actionPerformers: Map());
 
       var rokeet = _buildRokeet(config);
@@ -103,23 +106,19 @@ void main() {
       var config = RokeetConfig(
           clientId: 'client_id',
           clientSecret: "client_secret",
-          widgetBuilders: {
-            "label": RLabelWidgetBuilder(),
-            "button": RButtonWidgetBuilder(),
-            "vertical_container": RVerticalContainerWidgetBuilder()
-          },
-          actionPerformers: {
-            RNavigateAction.TYPE: RNavigateActionPerformer()
-          });
+          widgetBuilders: baseWidgets,
+          actionPerformers: baseActions);
 
       var rokeet = _buildRokeet(config);
+      _configureMockApi();
       rokeet.api = mockApi!;
       await tester.pumpWidget(RokeetApp(rokeet));
       await tester.pumpAndSettle(
           Duration(seconds: 10), EnginePhase.build, Duration(minutes: 1));
+      var findLoginButton = find.widgetWithText(ElevatedButton, 'Login');
+      expect(findLoginButton, findsOneWidget);
 
-      ElevatedButton loginButton =
-          tester.widget(find.widgetWithText(ElevatedButton, 'Login'));
+      ElevatedButton loginButton = tester.widget(findLoginButton);
       loginButton.onPressed!();
 
       await tester.pumpAndSettle(

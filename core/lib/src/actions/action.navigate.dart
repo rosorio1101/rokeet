@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:rokeet/src/pages/page_step.dart';
-import 'action.dart';
+
 import '../errors.dart';
 import '../rokeet.dart';
+import 'action.dart';
 import 'actions.performer.dart';
 
 class NavigateActionData {
@@ -13,7 +14,10 @@ class NavigateActionData {
 class RNavigateAction extends RAction<NavigateActionData> {
   static const String TYPE = "navigate";
 
-  RNavigateAction.fromJson(Map<String, dynamic> json) : super.fromJson(json);
+  static final RActionParserFunction<RNavigateAction> jsonParser =
+      (json) => RNavigateAction._fromJson(json);
+
+  RNavigateAction._fromJson(Map<String, dynamic> json) : super.fromJson(json);
 
   @override
   NavigateActionData parseData(Map<String, dynamic> json) {

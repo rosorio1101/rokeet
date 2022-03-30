@@ -5,17 +5,25 @@ void main() {
   runApp(MyApp());
 }
 
-Map<String, RWidgetBuilder> _createBuilders() {
-  Map<String, RWidgetBuilder> builders = Map();
-  builders[RLabelWidget.TYPE] = RLabelWidgetBuilder();
-  builders[RVerticalContainerWidget.TYPE] = RVerticalContainerWidgetBuilder();
-  builders[RButtonWidget.TYPE] = RButtonWidgetBuilder();
+Map<String, Map<RWidgetBuilder, RWidgetParserFunction>> _createBuilders() {
+  Map<String, Map<RWidgetBuilder, RWidgetParserFunction>> builders = Map();
+  builders[RLabelWidget.TYPE] = {
+    RLabelWidgetBuilder(): RLabelWidget.jsonParser
+  };
+  builders[RVerticalContainerWidget.TYPE] = {
+    RVerticalContainerWidgetBuilder(): RVerticalContainerWidget.jsonParser
+  };
+  builders[RButtonWidget.TYPE] = {
+    RButtonWidgetBuilder(): RButtonWidget.jsonParser
+  };
   return builders;
 }
 
-Map<String, RActionPerformer> _createPerformers() {
-  Map<String, RActionPerformer> performers = Map();
-  performers[RNavigateAction.TYPE] = RNavigateActionPerformer();
+Map<String, Map<RActionPerformer, RActionParserFunction>> _createPerformers() {
+  Map<String, Map<RActionPerformer, RActionParserFunction>> performers = Map();
+  performers[RNavigateAction.TYPE] = {
+    RNavigateActionPerformer(): RNavigateAction.jsonParser
+  };
   return performers;
 }
 

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../rokeet.dart';
 import 'widget.dart';
 import 'widget_builder.dart';
@@ -8,7 +9,10 @@ class VerticalContainerData {}
 class RVerticalContainerWidget extends RWidget<VerticalContainerData> {
   static const TYPE = "vertical_container";
 
-  RVerticalContainerWidget.fromJson(Map<String, dynamic> json)
+  static final RWidgetParserFunction<RVerticalContainerWidget> jsonParser =
+      (json) => RVerticalContainerWidget._fromJson(json);
+
+  RVerticalContainerWidget._fromJson(Map<String, dynamic> json)
       : super.fromJson(json);
 
   @override
