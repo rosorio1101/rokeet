@@ -11,7 +11,7 @@ dependencies:
   dio: ^4.0.0
   flutter:
     sdk: flutter
-  http: ^0.13.3
+  http: 0.13.3
   package_info: ^2.0.0
   shared_preferences: ^2.0.5
   stack: ^0.2.1

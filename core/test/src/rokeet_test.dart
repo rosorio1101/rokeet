@@ -9,7 +9,14 @@ import 'package:test/test.dart';
 import 'rokeet_test.mocks.dart';
 import 'utils.dart';
 
-@GenerateMocks([RState, RokeetApi, RActionPerformer, BuildContext])
+@GenerateMocks([
+  RokeetApi,
+  RActionPerformer,
+  BuildContext
+], customMocks: [
+  MockSpec<RState>(as: #MockRState, unsupportedMembers: {#property, #widget}),
+  MockSpec<State>(unsupportedMembers: {#widget})
+])
 void main() {
   late RokeetApi mockApi;
   BuildContext? context;
@@ -24,7 +31,8 @@ void main() {
   setUp(() {
     mockApi = MockRokeetApi();
     context = MockBuildContext();
-    configureRInit();
+    when(mockApi.getApp("client_id", "client_secret"))
+        .thenAnswer((_) => Future.value(AppConfig("login")));
   });
   tearDown(() {
     clearInteractions(mockApi);
@@ -55,8 +63,10 @@ void main() {
     });
 
     test('should init and register builders', () {
-      var expectedBuilder = RVerticalContainerWidgetBuilder();
-      var builders = Map<String, RWidgetBuilder>();
+      var expectedBuilder = {
+        RVerticalContainerWidgetBuilder(): RVerticalContainerWidget.jsonParser
+      };
+      var builders = Map<String, Map<RWidgetBuilder, RWidgetParserFunction>>();
       builders[RVerticalContainerWidget.TYPE] = expectedBuilder;
 
       var config = RokeetConfig(
@@ -69,12 +79,15 @@ void main() {
       rokeet.api = mockApi;
       return rokeet.init(mockState, context!).then((appConfig) => expect(
           rokeet.widgetBuilderRegistry.get(RVerticalContainerWidget.TYPE),
-          equals(expectedBuilder)));
+          equals(expectedBuilder.keys.first)));
     });
 
     test('should init and register performers', () {
-      var expectPerformer = RNavigateActionPerformer();
-      var performers = Map<String, RActionPerformer>();
+      var expectPerformer = {
+        RNavigateActionPerformer(): RNavigateAction.jsonParser
+      };
+      var performers =
+          Map<String, Map<RActionPerformer, RActionParserFunction>>();
       performers[RNavigateAction.TYPE] = expectPerformer;
 
       var config = RokeetConfig(
@@ -87,12 +100,14 @@ void main() {
       rokeet.api = mockApi;
       return rokeet.init(mockState, context!).then((appConfig) => expect(
           rokeet.actionPerformerRegistry.get(RNavigateAction.TYPE),
-          equals(expectPerformer)));
+          equals(expectPerformer.keys.first)));
     });
 
     test('should build widget', () {
-      var expectedBuilder = RVerticalContainerWidgetBuilder();
-      var builders = Map<String, RWidgetBuilder>();
+      var expectedBuilder = {
+        RVerticalContainerWidgetBuilder(): RVerticalContainerWidget.jsonParser
+      };
+      var builders = Map<String, Map<RWidgetBuilder, RWidgetParserFunction>>();
       builders[RVerticalContainerWidget.TYPE] = expectedBuilder;
 
       var config = RokeetConfig(
@@ -112,9 +127,11 @@ void main() {
     });
 
     test('should perform action', () {
-      var expectPerformer = MockRActionPerformer();
-      var performers = Map<String, RActionPerformer>();
-      performers[RNavigateAction.TYPE] = expectPerformer;
+      RActionPerformer expectedPerformer = MockRActionPerformer();
+      var mapPerformers = {expectedPerformer: RNavigateAction.jsonParser};
+      var performers =
+          Map<String, Map<RActionPerformer, RActionParserFunction>>();
+      performers[RNavigateAction.TYPE] = mapPerformers;
 
       var config = RokeetConfig(
           clientId: "client_id",
@@ -127,7 +144,7 @@ void main() {
       return rokeet.init(mockState, context!).then((appConfig) {
         var action = RActionParser.parse(loadJson('rokeet/action'))!;
         rokeet.performAction(action);
-        verify(expectPerformer.performAction(rokeet, action)).called(1);
+        verify(expectedPerformer.performAction(rokeet, action)).called(1);
       });
     });
   });

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+
 import '../actions/action.dart';
+import '../rokeet.dart';
 import 'widget.dart';
 import 'widget_builder.dart';
-import '../rokeet.dart';
 
 class ButtonData {
   String? text;
@@ -12,7 +13,10 @@ class ButtonData {
 class RButtonWidget extends RWidget<ButtonData> {
   static const TYPE = "button";
 
-  RButtonWidget.fromJson(Map<String, dynamic> json) : super.fromJson(json);
+  static final RWidgetParserFunction<RButtonWidget> jsonParser =
+      (json) => RButtonWidget._fromJson(json);
+
+  RButtonWidget._fromJson(Map<String, dynamic> json) : super.fromJson(json);
 
   @override
   ButtonData? parseData(Map<String, dynamic> json) {

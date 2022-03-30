@@ -1,6 +1,4 @@
-import 'widget_button.dart';
-import 'widget_label.dart';
-import 'widget_vertical_container.dart';
+import 'dart:collection';
 
 abstract class RWidget<D> {
   String? id;
@@ -27,21 +25,12 @@ abstract class RWidget<D> {
   D? parseData(Map<String, dynamic> json);
 }
 
-abstract class RWidgetDataParser<D> {
-  D? parse(Map<String, dynamic> json);
-}
+typedef T? RWidgetParserFunction<T extends RWidget>(Map<String, dynamic> json);
 
 class RWidgetParser {
+  static final Map<String, RWidgetParserFunction> parsers = LinkedHashMap();
+
   static RWidget? parse(Map<String, dynamic> json) {
-    switch (json['ui_type']) {
-      case RVerticalContainerWidget.TYPE:
-        return RVerticalContainerWidget.fromJson(json);
-      case RLabelWidget.TYPE:
-        return RLabelWidget.fromJson(json);
-      case RButtonWidget.TYPE:
-        return RButtonWidget.fromJson(json);
-      default:
-        return null;
-    }
+    return parsers[json['ui_type']]?.call(json);
   }
 }

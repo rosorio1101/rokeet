@@ -14,7 +14,7 @@ void main() {
     });
 
     testWidgets("Builder should build a Button with Data", (tester) async {
-      var button = RButtonWidget.fromJson(loadJson('widgets/button'));
+      var button = RButtonWidget.jsonParser(loadJson('widgets/button'))!;
       var buttonWidget = builder!.build(rokeet!, button);
       var materialApp = MaterialApp(
         home: buttonWidget,
