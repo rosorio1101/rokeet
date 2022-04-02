@@ -1,4 +1,5 @@
 import 'actions/actions.dart';
+import 'pages/page.dart';
 import 'widgets/widgets.dart';
 
 abstract class Registry<T> {
@@ -12,3 +13,5 @@ abstract class Registry<T> {
 class WidgetBuilderRegistry extends Registry<RWidgetBuilder> {}
 
 class ActionPerformerRegistry extends Registry<RActionPerformer> {}
+
+class StepPageCreatorRegistry extends Registry<RPageCreator> {}

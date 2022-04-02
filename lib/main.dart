@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rokeet/rokeet.dart';
+import 'package:test_app/main_page.dart';
 
 void main() {
   runApp(MyApp());
@@ -27,12 +28,15 @@ Map<String, Map<RActionPerformer, RActionParserFunction>> _createPerformers() {
   return performers;
 }
 
+Map<String, RPageCreator> _createPageCreators() => {"main": MainPage.CREATOR};
+
 class MyApp extends StatelessWidget {
   final config = RokeetConfig(
       clientId: "rokeet",
       clientSecret: "rokeet_secret",
       widgetBuilders: _createBuilders(),
-      actionPerformers: _createPerformers());
+      actionPerformers: _createPerformers(),
+      pageCreators: _createPageCreators());
 
   // This widget is the root of your application.
   @override
