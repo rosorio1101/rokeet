@@ -47,6 +47,9 @@ jobs:
     steps:
       - checkout
       - run:
+          name: Create credentials
+          command: ./build_credentials.sh
+      - run:
           name: Validate publish
           command: cd core && flutter packages pub publish --dry-run
       - run:

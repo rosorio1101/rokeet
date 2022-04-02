@@ -5,3 +5,4 @@ export 'src/widgets/widgets.dart';
 export 'src/pages/pages.dart';
 export 'src/actions/actions.dart';
 export 'src/app.dart';
+export 'src/model.dart';

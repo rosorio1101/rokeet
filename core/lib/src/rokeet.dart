@@ -3,26 +3,30 @@ import 'dart:developer';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart' hide Stack;
 
-import '../rokeet.dart';
+import 'actions/actions.dart';
 import 'errors.dart';
 import 'model.dart';
 import 'network/network.dart';
+import 'pages/pages.dart';
 import 'registry.dart';
 import 'stack.dart';
 import 'storage/storage.dart';
+import 'widgets/widgets.dart';
 
 class RokeetConfig {
   RokeetConfig(
       {this.clientId,
       this.clientSecret,
       this.widgetBuilders,
-      this.actionPerformers});
+      this.actionPerformers,
+      this.pageCreators});
 
   final String? clientId;
   final String? clientSecret;
   final Map<String, Map<RWidgetBuilder, RWidgetParserFunction>>? widgetBuilders;
   final Map<String, Map<RActionPerformer, RActionParserFunction>>?
       actionPerformers;
+  final Map<String, RPageCreator>? pageCreators;
 }
 
 class Rokeet {
@@ -47,6 +51,9 @@ class Rokeet {
   final Registry<RActionPerformer> actionPerformerRegistry =
       ActionPerformerRegistry();
 
+  @visibleForTesting
+  final Registry<RPageCreator> pageCreatorRegistry = StepPageCreatorRegistry();
+
   Stack<RState> _stateStack = Stack();
   Stack<BuildContext> _contextStack = Stack();
 
@@ -64,15 +71,18 @@ class Rokeet {
 
   void _configure(RokeetConfig config) {
     _config = config;
-    config.widgetBuilders?.entries.forEach((e) => e.value.entries.forEach((w) {
+    _config.widgetBuilders?.entries.forEach((e) => e.value.entries.forEach((w) {
           _registerWidgetBuilder(e.key, w.key);
           RWidgetParser.parsers[e.key] = w.value;
         }));
-    config.actionPerformers?.entries
+    _config.actionPerformers?.entries
         .forEach((e) => e.value.entries.forEach((a) {
               _registerActionPerformer(e.key, a.key);
               RActionParser.parsers[e.key] = a.value;
             }));
+
+    _config.pageCreators?.entries
+        .forEach((e) => _registerPageCreator(e.key, e.value));
   }
 
   void _registerWidgetBuilder(String key, RWidgetBuilder builder) {
@@ -81,6 +91,10 @@ class Rokeet {
 
   void _registerActionPerformer(String key, RActionPerformer performer) {
     actionPerformerRegistry.register(key, performer);
+  }
+
+  void _registerPageCreator(String step, RPageCreator creator) {
+    pageCreatorRegistry.register(step, creator);
   }
 
   Future<AppConfig?> init(RState initState, BuildContext context) async {
@@ -134,12 +148,19 @@ class Rokeet {
     }
     return builder.build(this, widget);
   }
+
+  RPageCreator getPageCreator(String key) {
+    RPageCreator? creator = pageCreatorRegistry.get(key);
+    if (creator == null) {
+      creator = RokeetStepPage.CREATOR;
+    }
+    return creator;
+  }
 }
 
 class RokeetBuilder {
   String? _baseUrl;
   RokeetConfig? _config;
-
   RokeetBuilder();
 
   RokeetBuilder withBaseUrl(String baseUrl) {

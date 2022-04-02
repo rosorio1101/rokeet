@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 import '../rokeet.dart';
 
+typedef T RPageCreator<T extends AbstractRokeetPage, D>(Rokeet rokeet, D data);
+
 abstract class AbstractRokeetPage extends StatefulWidget {
   final Rokeet rokeet;
   AbstractRokeetPage(this.rokeet, {Key? key}) : super(key: key);
@@ -31,7 +33,7 @@ abstract class RState<T extends AbstractRokeetPage, D> extends State<T> {
   }
 
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     rokeet.pushContext(context);
     return buildPage(context);
   }

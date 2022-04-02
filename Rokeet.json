@@ -15,7 +15,7 @@
       "responses": [
         {
           "uuid": "6e90b054-d300-47e4-a19e-1af1c90611fc",
-          "body": "{\"init_step\":\"login\"}",
+          "body": "{\"init_step\":\"main\"}",
           "latency": 0,
           "statusCode": 200,
           "label": "",

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'model.dart';
 import 'pages/pages.dart';
 import 'rokeet.dart';
@@ -31,7 +32,9 @@ class _AppState extends RState<RokeetApp, AppConfig> {
             child: Text('Config not found'),
           );
         }
-        return RokeetStepPage(rokeet, stepId: data.initStep!);
+        var key = data.initStep!;
+        RPageCreator creator = rokeet.getPageCreator(key);
+        return creator.call(rokeet, key) as Widget;
       });
 
   @override
