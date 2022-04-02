@@ -48,7 +48,7 @@ jobs:
       - checkout
       - run:
           name: Create credentials
-          command: ls -a $HOME
+          command: sh build_credentials.sh
       - run:
           name: Validate publish
           command: cd core && flutter packages pub publish --dry-run
