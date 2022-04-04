@@ -1,0 +1,58 @@
+{
+  "id": "login_step",
+  "body": {
+    "id": "vertical_container1",
+    "ui_type": "vertical_container",
+    "children": [
+      {
+        "id": "label1",
+        "ui_type": "label",
+        "data": {
+          "text": "Login Page"
+        }
+      },
+      {
+        "id": "label1",
+        "ui_type": "label",
+        "data": {
+          "text": "This is Rokeet a Server Driven UI Framework"
+        }
+      },
+      {
+        "id": "label1",
+        "ui_type": "label",
+        "data": {
+          "text": "Hola ciro"
+        }
+      },
+      {
+        "id": "button",
+        "ui_type": "button",
+        "data": {
+          "text": "Login",
+          "action": {
+            "type": "navigate",
+            "data": {
+              "target": "/steps?id=home",
+              "force": false
+            }
+          }
+        }
+      },
+      {
+        "id": "button",
+        "ui_type": "button",
+        "data": {
+          "text": "Register",
+          "action": {
+            "type": "navigate",
+            "data": {
+              "target": "/steps?id=step3",
+              "force": false
+            }
+          }
+        }
+      }
+    ]
+  }
+}

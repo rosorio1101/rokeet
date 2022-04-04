@@ -1,0 +1,38 @@
+{
+  "id": "home_step",
+  "body": {
+    "id": "vertical_container1",
+    "ui_type": "vertical_container",
+    "data": null,
+    "children": [
+      {
+        "id": "button",
+        "ui_type": "button",
+        "data": {
+          "text": "Click me!"
+        }
+      },
+      {
+        "id": "button",
+        "ui_type": "button",
+        "data": {
+          "text": "Click me!"
+        }
+      },
+      {
+        "id": "button",
+        "ui_type": "button",
+        "data": {
+          "text": "Click me!"
+        }
+      },
+      {
+        "id": "button",
+        "ui_type": "button",
+        "data": {
+          "text": "Click me!"
+        }
+      }
+    ]
+  }
+}

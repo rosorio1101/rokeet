@@ -1,0 +1,45 @@
+{
+  "id": "welcome_step",
+  "body": {
+    "id": "vertical_container1",
+    "ui_type": "vertical_container",
+    "data": null,
+    "children": [
+      {
+        "id": "label1",
+        "ui_type": "label",
+        "data": {
+          "text": "Hola Cokee!"
+        }
+      },
+      {
+        "id": "label2",
+        "ui_type": "label",
+        "data": {
+          "text": "Werna mi rey!"
+        }
+      },
+      {
+        "id": "label3",
+        "ui_type": "label",
+        "data": {
+          "text": "Que pasa mi rey!"
+        }
+      },
+      {
+        "id": "button",
+        "ui_type": "button",
+        "data": {
+          "text": "Navegar!",
+          "action": {
+            "type": "navigate",
+            "data": {
+              "target": "/steps?id=step3",
+              "force": false
+            }
+          }
+        }
+      }
+    ]
+  }
+}
