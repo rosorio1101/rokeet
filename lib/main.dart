@@ -42,7 +42,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var rokeet = RokeetBuilder()
-        .withBaseUrl('http://localhost:3000')
+        .withBaseUrl('http://10.0.2.2:3000')
         .withConfig(config)
         .build();
     return RokeetApp(
