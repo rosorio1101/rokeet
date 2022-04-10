@@ -28,7 +28,7 @@ void main() {
     }
 
     Rokeet _buildRokeet(RokeetConfig config) {
-      return RokeetBuilder()
+      return Rokeet.builder()
           .withBaseUrl("http://localhost:3000")
           .withConfig(config)
           .build();

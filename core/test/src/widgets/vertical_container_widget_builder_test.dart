@@ -30,7 +30,7 @@ void main() {
           clientSecret: "client_secret",
           widgetBuilders: baseWidgets,
           actionPerformers: baseActions);
-      rokeet = RokeetBuilder()
+      rokeet = Rokeet.builder()
           .withConfig(config)
           .withBaseUrl("http://test.com")
           .build();

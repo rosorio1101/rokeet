@@ -40,6 +40,8 @@ class Rokeet {
   @visibleForTesting
   Rokeet();
 
+  static _RokeetBuilder builder() => _RokeetBuilder();
+
   late RokeetConfig _config;
   @visibleForTesting
   late RokeetApi api;
@@ -158,17 +160,17 @@ class Rokeet {
   }
 }
 
-class RokeetBuilder {
+class _RokeetBuilder {
   String? _baseUrl;
   RokeetConfig? _config;
-  RokeetBuilder();
+  _RokeetBuilder();
 
-  RokeetBuilder withBaseUrl(String baseUrl) {
+  _RokeetBuilder withBaseUrl(String baseUrl) {
     this._baseUrl = baseUrl;
     return this;
   }
 
-  RokeetBuilder withConfig(RokeetConfig config) {
+  _RokeetBuilder withConfig(RokeetConfig config) {
     this._config = config;
     return this;
   }
