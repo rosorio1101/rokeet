@@ -1,3 +1,7 @@
+## [1.3.0] - Version 1.2.0
+- Add HttpClient
+- Improve Rokeet Building
+
 ## [1.2.0] - Version 1.2.0
 - Add Page creator registry
 
