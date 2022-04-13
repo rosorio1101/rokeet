@@ -6,6 +6,7 @@ import 'package:flutter/material.dart' hide Stack;
 import 'actions/actions.dart';
 import 'errors.dart';
 import 'model.dart';
+import 'network/client/dio/dio_http_client.dart';
 import 'network/network.dart';
 import 'pages/pages.dart';
 import 'registry.dart';
@@ -19,7 +20,8 @@ class RokeetConfig {
       this.clientSecret,
       this.widgetBuilders,
       this.actionPerformers,
-      this.pageCreators});
+      this.pageCreators,
+      this.httpClient});
 
   final String? clientId;
   final String? clientSecret;
@@ -27,13 +29,13 @@ class RokeetConfig {
   final Map<String, Map<RActionPerformer, RActionParserFunction>>?
       actionPerformers;
   final Map<String, RPageCreator>? pageCreators;
+  final HttpClient? httpClient;
 }
 
 class Rokeet {
   Rokeet._(String baseUrl, RokeetConfig config) {
-    api = RokeetApiBuilder(baseUrl)
-        .addInterceptor(LogInterceptor(requestBody: true, responseBody: true))
-        .build();
+    httpClient = config.httpClient ?? _buildDefaultClient(baseUrl);
+    api = RokeetApi(httpClient);
     _configure(config);
   }
 
@@ -45,6 +47,8 @@ class Rokeet {
   late RokeetConfig _config;
   @visibleForTesting
   late RokeetApi api;
+
+  late HttpClient httpClient;
 
   @visibleForTesting
   final Registry<RWidgetBuilder> widgetBuilderRegistry =
@@ -158,6 +162,11 @@ class Rokeet {
     }
     return creator;
   }
+
+  HttpClient _buildDefaultClient(String baseUrl) => DioHttpClient.builder()
+      .withBaseUrl(baseUrl)
+      .addInterceptor(LogInterceptor(requestBody: true, responseBody: true))
+      .build();
 }
 
 class _RokeetBuilder {

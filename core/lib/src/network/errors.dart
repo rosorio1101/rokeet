@@ -10,8 +10,7 @@ class UnauthorizedError extends NetworkError {
 }
 
 class NotFoundError extends NetworkError {
-  NotFoundError(url)
-      : super('Resource not found: $url', url);
+  NotFoundError(url) : super('Resource not found: $url', url);
 }
 
 class BadRequestError extends NetworkError {
@@ -21,3 +20,5 @@ class BadRequestError extends NetworkError {
 class ServerError extends NetworkError {
   ServerError(url) : super("SERVER_ERROR", url);
 }
+
+class NoBaseUrlDefinedError extends Error {}

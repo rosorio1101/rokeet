@@ -6,49 +6,64 @@
     "children": [
       {
         "id": "label1",
-        "ui_type": "label",
+        "ui_type": "text",
         "data": {
-          "text": "Login Page"
+          "text": "Ingresa con tu usuario",
+          "padding": {
+            "left": 32.0,
+            "top": 8.0,
+            "bottom": 8.0
+          }
         }
       },
       {
-        "id": "label1",
-        "ui_type": "label",
+        "id": "username_field",
+        "ui_type": "text_field",
         "data": {
-          "text": "This is Rokeet a Server Driven UI Framework"
+          "hint": "Usuario",
+          "padding": {
+            "left": 16.0,
+            "top": 8.0,
+            "bottom": 32.0
+          }
         }
       },
       {
-        "id": "label1",
-        "ui_type": "label",
+        "id": "text_field2",
+        "ui_type": "text_field",
         "data": {
-          "text": "Hola ciro"
+          "hint": "Contraseña"
         }
       },
       {
         "id": "button",
         "ui_type": "button",
         "data": {
-          "text": "Login",
+          "text": "Ingresar",
           "action": {
-            "type": "navigate",
-            "data": {
-              "target": "/steps?id=home",
-              "force": false
+            "type": "debug_storage",
+            "data":{
+              "storage_key": "username_field"
             }
           }
         }
       },
       {
+        "id": "label2",
+        "ui_type": "text",
+        "data": {
+          "text": "o ingresa con"
+        }
+      },
+      {
         "id": "button",
         "ui_type": "button",
         "data": {
-          "text": "Register",
+          "text": "Google",
           "action": {
-            "type": "navigate",
-            "data": {
-              "target": "/steps?id=step3",
-              "force": false
+            "type": "debug_storage",
+            "data":{
+              "storage_key": "text_field2"
             }
           }
         }

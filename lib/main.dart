@@ -41,7 +41,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    var rokeet = RokeetBuilder()
+    var rokeet = Rokeet.builder()
         .withBaseUrl('http://10.0.2.2:3000')
         .withConfig(config)
         .build();
