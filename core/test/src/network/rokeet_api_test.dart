@@ -4,6 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http_mock_adapter/http_mock_adapter.dart';
 import 'package:rokeet/rokeet.dart';
+import 'package:rokeet/src/network/client/dio/dio_http_client.dart';
 import 'package:rokeet/src/network/network.dart';
 import 'package:rokeet/src/network/query_params.dart';
 
@@ -13,13 +14,15 @@ void main() {
   WidgetsFlutterBinding.ensureInitialized();
   group("Rokeet Api", () {
     late DioAdapter dioAdapter;
+    late HttpClient httpClient;
     late RokeetApi api;
     setUp(() {
       dioAdapter = DioAdapter();
-      api = RokeetApiBuilder("https://localhost")
-          .clientAdapter(dioAdapter)
+      httpClient = DioHttpClient.builder()
+          .withBaseUrl("https://localhost")
+          .withClientAdapter(dioAdapter)
           .build();
-
+      api = RokeetApi(httpClient);
       RWidgetParser.parsers[RLabelWidget.TYPE] =
           (json) => RLabelWidget.jsonParser(json);
       RWidgetParser.parsers[RButtonWidget.TYPE] =
