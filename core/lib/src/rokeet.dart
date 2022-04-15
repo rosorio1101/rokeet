@@ -16,7 +16,8 @@ import 'storage/storage.dart';
 import 'widgets/widgets.dart';
 
 class RokeetConfig {
-  RokeetConfig(
+  static const DEFAULT_INIT_STEP = "main";
+  RokeetConfig(this.initStep,
       {this.clientId,
       this.clientSecret,
       this.widgetBuilders,
@@ -31,6 +32,7 @@ class RokeetConfig {
       actionPerformers;
   final Map<String, RPageCreator>? pageCreators;
   final HttpClient? httpClient;
+  final String initStep;
 }
 
 class Rokeet {
@@ -107,11 +109,7 @@ class Rokeet {
   Future<AppConfig?> init(RState initState, BuildContext context) async {
     pushState(initState);
     pushContext(context);
-    return _init();
-  }
-
-  Future<AppConfig?> _init() async {
-    return await api.getApp(_config.clientId!, _config.clientSecret!);
+    return AppConfig(_config.initStep);
   }
 
   Future<RStep?> getStep(String id) async {
@@ -217,7 +215,7 @@ class _RokeetBuilder {
     }
 
     if (_config == null) {
-      _config = RokeetConfig();
+      _config = RokeetConfig(RokeetConfig.DEFAULT_INIT_STEP);
     }
     return Rokeet._(this._baseUrl!, this._config!);
   }

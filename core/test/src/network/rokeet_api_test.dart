@@ -31,27 +31,6 @@ void main() {
           RVerticalContainerWidget.jsonParser;
     });
 
-    test("get app should return status 200", () async {
-      var clientId = "clientId";
-      var clientSecret = "clientSecret";
-      dioAdapter.onGet(
-          "/apps",
-          (request) => request.reply(
-                200,
-                loadJson("app/appconfig"),
-              ),
-          queryParameters: {
-            QueryParams.clientId: clientId,
-            QueryParams.clientSecret: clientSecret
-          },
-          headers: {
-            HttpHeaders.userAgentHeader: "rokeet-Unknown-(en_US)"
-          });
-      var appConfig = await api.getApp(clientId, clientSecret);
-      expect(appConfig, isNotNull);
-      expect(appConfig.initStep, equals("login"));
-    });
-
     test("get step should return status 200", () async {
       dioAdapter.onGet(
           "/steps",

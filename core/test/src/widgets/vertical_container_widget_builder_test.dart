@@ -25,7 +25,7 @@ void main() {
 
   group("Vertical Container Widget Builder", () {
     setUp(() async {
-      var config = RokeetConfig(
+      var config = RokeetConfig(RokeetConfig.DEFAULT_INIT_STEP,
           clientId: 'client_id',
           clientSecret: "client_secret",
           widgetBuilders: baseWidgets,
