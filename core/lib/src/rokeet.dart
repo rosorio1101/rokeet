@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart' hide Stack;
+import 'package:rokeet/src/utils.dart';
 
 import 'actions/actions.dart';
 import 'errors.dart';
@@ -167,6 +168,32 @@ class Rokeet {
       .withBaseUrl(baseUrl)
       .addInterceptor(LogInterceptor(requestBody: true, responseBody: true))
       .build();
+
+  void navigateToStep(String step, {bool force = false}) {
+    final context = currentContext;
+    Uri? uri;
+    if (step.isUri) {
+      uri = Uri.parse(step);
+    } else {
+      uri = Uri.parse('/step?id=$step');
+    }
+
+    if (force == true) {
+      var id = uri.queryParameters['id'];
+      Navigator.pushReplacement(
+        context,
+        PageRouteBuilder(
+          pageBuilder: (context, animation1, animation2) => RokeetStepPage(
+            this,
+            stepId: id!,
+          ),
+          transitionDuration: Duration(seconds: 0),
+        ),
+      );
+    } else {
+      Navigator.pushNamed(context, uri.toString());
+    }
+  }
 }
 
 class _RokeetBuilder {

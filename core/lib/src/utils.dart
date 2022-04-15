@@ -20,6 +20,12 @@ ReturnType run<ReturnType>(ReturnType Function() operation) {
   return operation();
 }
 
+extension StringUrl on String {
+  bool get isUri {
+    return Uri.tryParse(this)?.hasAbsolutePath ?? false;
+  }
+}
+
 extension ScopeObject<T extends Object> on T {
   ReturnType let<ReturnType>(ReturnType Function(T) operation_for) {
     return operation_for(this);
