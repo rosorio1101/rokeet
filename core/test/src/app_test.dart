@@ -14,12 +14,8 @@ void main() {
 
     void _configureMockApi() {
       mockApi = MockRokeetApi();
-      AppConfig init = AppConfig.fromJson(loadJson('app/appconfig'));
       RStep loginStep = RStep.fromJson(loadJson('app/login_step'));
       RStep homeStep = RStep.fromJson(loadJson('app/home_step'));
-
-      when(mockApi?.getApp('client_id', 'client_secret'))
-          .thenAnswer((_) => Future.value(init));
 
       when(mockApi?.getStep('login'))
           .thenAnswer((_) => Future.value(loginStep));
@@ -50,7 +46,7 @@ void main() {
     };
 
     testWidgets("App should show loading", (tester) async {
-      var config = RokeetConfig(
+      var config = RokeetConfig('login',
           clientId: 'client_id',
           clientSecret: "client_secret",
           widgetBuilders: baseWidgets,
@@ -64,7 +60,7 @@ void main() {
     });
 
     testWidgets("App should initialize successful", (tester) async {
-      var config = RokeetConfig(
+      var config = RokeetConfig('login',
           clientId: 'client_id',
           clientSecret: "client_secret",
           widgetBuilders: baseWidgets,
@@ -81,27 +77,8 @@ void main() {
       expect(find.byType(ElevatedButton), findsOneWidget);
     });
 
-    testWidgets("App should show no config message", (tester) async {
-      var config = RokeetConfig(
-          clientId: 'client_id',
-          clientSecret: "client_secret",
-          widgetBuilders: baseWidgets,
-          actionPerformers: Map());
-
-      var rokeet = _buildRokeet(config);
-      rokeet.api = mockApi!;
-      when(mockApi?.getApp('client_id', 'client_secret'))
-          .thenAnswer((_) => Future.value(null));
-      await tester.pumpWidget(RokeetApp(rokeet));
-      await tester.pumpAndSettle(
-          Duration(seconds: 10), EnginePhase.build, Duration(minutes: 1));
-
-      expect(find.byType(Text), findsNWidgets(1));
-      expect(find.text('Config not found'), findsOneWidget);
-    });
-
     testWidgets("App should navigate between steps", (tester) async {
-      var config = RokeetConfig(
+      var config = RokeetConfig('login',
           clientId: 'client_id',
           clientSecret: "client_secret",
           widgetBuilders: baseWidgets,

@@ -12,19 +12,6 @@ class RokeetApi {
 
   bool isLoading = false;
 
-  Future<AppConfig> getApp(String clientId, String clientSecret) async {
-    isLoading = true;
-    var headers = await _getHeaders();
-    var response = await _client.get("/apps",
-        queryParams: {
-          QueryParams.clientId: clientId,
-          QueryParams.clientSecret: clientSecret
-        },
-        headers: headers);
-    isLoading = false;
-    return AppConfig.fromJson(response.body);
-  }
-
   Future<RStep> getStep(String stepId) async {
     isLoading = true;
     Response response =

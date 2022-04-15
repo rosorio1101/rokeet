@@ -2,7 +2,6 @@ import 'package:flutter/widgets.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:rokeet/rokeet.dart';
-import 'package:rokeet/src/model.dart';
 import 'package:rokeet/src/network/rokeet_api.dart';
 import 'package:test/test.dart';
 
@@ -21,18 +20,10 @@ void main() {
   late RokeetApi mockApi;
   BuildContext? context;
   late Rokeet rokeet;
-  void configureRInit() {
-    AppConfig init = AppConfig.fromJson(loadJson('rokeet/appconfig'));
-    final future = Future.value(init);
-    when(mockApi.getApp('client_id', 'client_secret'))
-        .thenAnswer((_) => future);
-  }
 
   setUp(() {
     mockApi = MockRokeetApi();
     context = MockBuildContext();
-    when(mockApi.getApp("client_id", "client_secret"))
-        .thenAnswer((_) => Future.value(AppConfig("login")));
   });
   tearDown(() {
     clearInteractions(mockApi);
@@ -47,14 +38,13 @@ void main() {
 
   group('Rokeet', () {
     test('should init with config', () {
-      var config = RokeetConfig(
+      var config = RokeetConfig(RokeetConfig.DEFAULT_INIT_STEP,
           clientId: 'client_id',
           clientSecret: "client_secret",
           widgetBuilders: Map(),
           actionPerformers: Map());
 
       var mockState = MockRState();
-      configureRInit();
       rokeet = _buildRokeet(config);
       rokeet.api = mockApi;
       return rokeet
@@ -69,7 +59,7 @@ void main() {
       var builders = Map<String, Map<RWidgetBuilder, RWidgetParserFunction>>();
       builders[RVerticalContainerWidget.TYPE] = expectedBuilder;
 
-      var config = RokeetConfig(
+      var config = RokeetConfig(RokeetConfig.DEFAULT_INIT_STEP,
           clientId: "client_id",
           clientSecret: "client_secret",
           widgetBuilders: builders,
@@ -90,7 +80,7 @@ void main() {
           Map<String, Map<RActionPerformer, RActionParserFunction>>();
       performers[RNavigateAction.TYPE] = expectPerformer;
 
-      var config = RokeetConfig(
+      var config = RokeetConfig(RokeetConfig.DEFAULT_INIT_STEP,
           clientId: "client_id",
           clientSecret: "client_secret",
           widgetBuilders: Map(),
@@ -110,7 +100,7 @@ void main() {
       var builders = Map<String, Map<RWidgetBuilder, RWidgetParserFunction>>();
       builders[RVerticalContainerWidget.TYPE] = expectedBuilder;
 
-      var config = RokeetConfig(
+      var config = RokeetConfig(RokeetConfig.DEFAULT_INIT_STEP,
           clientId: "client_id",
           clientSecret: "client_secret",
           widgetBuilders: builders,
@@ -133,7 +123,7 @@ void main() {
           Map<String, Map<RActionPerformer, RActionParserFunction>>();
       performers[RNavigateAction.TYPE] = mapPerformers;
 
-      var config = RokeetConfig(
+      var config = RokeetConfig(RokeetConfig.DEFAULT_INIT_STEP,
           clientId: "client_id",
           clientSecret: "client_secret",
           widgetBuilders: Map(),
