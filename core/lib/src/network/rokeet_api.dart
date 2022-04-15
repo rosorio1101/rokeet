@@ -1,9 +1,7 @@
 import 'dart:io' as IO;
 
-import 'package:dio/dio.dart';
-import 'package:rokeet/src/network/client/http_client.dart';
-
 import '../model.dart';
+import 'network.dart';
 import 'query_params.dart';
 import 'user_agent.dart';
 
@@ -24,7 +22,7 @@ class RokeetApi {
         },
         headers: headers);
     isLoading = false;
-    return AppConfig.fromJson(response.data!);
+    return AppConfig.fromJson(response.body);
   }
 
   Future<RStep> getStep(String stepId) async {
@@ -32,7 +30,7 @@ class RokeetApi {
     Response response =
         await _client.get('/steps', queryParams: {QueryParams.id: stepId});
     isLoading = false;
-    return RStep.fromJson(response.data!);
+    return RStep.fromJson(response.body);
   }
 
   Future<Map<String, dynamic>> _getHeaders() async {
