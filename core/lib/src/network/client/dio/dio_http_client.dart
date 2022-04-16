@@ -92,11 +92,13 @@ class DioHttpClient extends HttpClient {
 }
 
 class _DioHttpClientBuilder {
-  _DioHttpClientBuilder._();
+  _DioHttpClientBuilder._() {
+    this._interceptors = Dio.Interceptors();
+  }
   late String _baseUrl;
   Dio.HttpClientAdapter _adapter = DefaultHttpClientAdapter();
 
-  Dio.Interceptors get _interceptors => Dio.Interceptors();
+  late Dio.Interceptors _interceptors;
 
   _DioHttpClientBuilder withBaseUrl(String url) {
     this._baseUrl = url;

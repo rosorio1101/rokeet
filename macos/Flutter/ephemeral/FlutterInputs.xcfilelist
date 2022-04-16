@@ -94,7 +94,7 @@
 /Users/robertoosoriosanhueza/.flutter/.pub-cache/hosted/pub.dartlang.org/file-6.1.2/lib/src/interface/file_system_entity.dart
 /Users/robertoosoriosanhueza/.flutter/.pub-cache/hosted/pub.dartlang.org/file-6.1.2/lib/src/interface/link.dart
 /Users/robertoosoriosanhueza/.flutter/.pub-cache/hosted/pub.dartlang.org/file-6.1.2/lib/src/io.dart
-/Users/robertoosoriosanhueza/.flutter/.pub-cache/hosted/pub.dartlang.org/http-0.13.3/LICENSE
+/Users/robertoosoriosanhueza/.flutter/.pub-cache/hosted/pub.dartlang.org/http-0.13.4/LICENSE
 /Users/robertoosoriosanhueza/.flutter/.pub-cache/hosted/pub.dartlang.org/http_parser-4.0.0/LICENSE
 /Users/robertoosoriosanhueza/.flutter/.pub-cache/hosted/pub.dartlang.org/http_parser-4.0.0/lib/http_parser.dart
 /Users/robertoosoriosanhueza/.flutter/.pub-cache/hosted/pub.dartlang.org/http_parser-4.0.0/lib/src/authentication_challenge.dart
@@ -159,7 +159,6 @@
 /Users/robertoosoriosanhueza/.flutter/.pub-cache/hosted/pub.dartlang.org/path_provider_windows-2.0.5/lib/path_provider_windows.dart
 /Users/robertoosoriosanhueza/.flutter/.pub-cache/hosted/pub.dartlang.org/path_provider_windows-2.0.5/lib/src/folders.dart
 /Users/robertoosoriosanhueza/.flutter/.pub-cache/hosted/pub.dartlang.org/path_provider_windows-2.0.5/lib/src/path_provider_windows_real.dart
-/Users/robertoosoriosanhueza/.flutter/.pub-cache/hosted/pub.dartlang.org/pedantic-1.11.1/LICENSE
 /Users/robertoosoriosanhueza/.flutter/.pub-cache/hosted/pub.dartlang.org/platform-3.1.0/LICENSE
 /Users/robertoosoriosanhueza/.flutter/.pub-cache/hosted/pub.dartlang.org/platform-3.1.0/lib/platform.dart
 /Users/robertoosoriosanhueza/.flutter/.pub-cache/hosted/pub.dartlang.org/platform-3.1.0/lib/src/interface/local_platform.dart
@@ -943,6 +942,9 @@
 /Users/robertoosoriosanhueza/Workspace/personal/rokeet/core/lib/src/app.dart
 /Users/robertoosoriosanhueza/Workspace/personal/rokeet/core/lib/src/errors.dart
 /Users/robertoosoriosanhueza/Workspace/personal/rokeet/core/lib/src/model.dart
+/Users/robertoosoriosanhueza/Workspace/personal/rokeet/core/lib/src/network/client/dio/dio_http_client.dart
+/Users/robertoosoriosanhueza/Workspace/personal/rokeet/core/lib/src/network/client/dio/interceptors.dart
+/Users/robertoosoriosanhueza/Workspace/personal/rokeet/core/lib/src/network/client/http_client.dart
 /Users/robertoosoriosanhueza/Workspace/personal/rokeet/core/lib/src/network/network.dart
 /Users/robertoosoriosanhueza/Workspace/personal/rokeet/core/lib/src/network/query_params.dart
 /Users/robertoosoriosanhueza/Workspace/personal/rokeet/core/lib/src/network/rokeet_api.dart
@@ -956,6 +958,7 @@
 /Users/robertoosoriosanhueza/Workspace/personal/rokeet/core/lib/src/stack.dart
 /Users/robertoosoriosanhueza/Workspace/personal/rokeet/core/lib/src/storage/storage.dart
 /Users/robertoosoriosanhueza/Workspace/personal/rokeet/core/lib/src/storage/storage_manager.dart
+/Users/robertoosoriosanhueza/Workspace/personal/rokeet/core/lib/src/utils.dart
 /Users/robertoosoriosanhueza/Workspace/personal/rokeet/core/lib/src/widgets/widget.dart
 /Users/robertoosoriosanhueza/Workspace/personal/rokeet/core/lib/src/widgets/widget_builder.dart
 /Users/robertoosoriosanhueza/Workspace/personal/rokeet/core/lib/src/widgets/widget_button.dart
@@ -963,4 +966,5 @@
 /Users/robertoosoriosanhueza/Workspace/personal/rokeet/core/lib/src/widgets/widget_vertical_container.dart
 /Users/robertoosoriosanhueza/Workspace/personal/rokeet/core/lib/src/widgets/widgets.dart
 /Users/robertoosoriosanhueza/Workspace/personal/rokeet/lib/main.dart
+/Users/robertoosoriosanhueza/Workspace/personal/rokeet/lib/main_page.dart
 /Users/robertoosoriosanhueza/Workspace/personal/rokeet/pubspec.yaml

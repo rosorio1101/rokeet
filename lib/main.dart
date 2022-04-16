@@ -31,7 +31,7 @@ Map<String, Map<RActionPerformer, RActionParserFunction>> _createPerformers() {
 Map<String, RPageCreator> _createPageCreators() => {"main": MainPage.CREATOR};
 
 class MyApp extends StatelessWidget {
-  final config = RokeetConfig(
+  final config = RokeetConfig("main",
       clientId: "rokeet",
       clientSecret: "rokeet_secret",
       widgetBuilders: _createBuilders(),
@@ -42,7 +42,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var rokeet = Rokeet.builder()
-        .withBaseUrl('http://10.0.2.2:3000')
+        .withBaseUrl('http://localhost:3000')
         .withConfig(config)
         .build();
     return RokeetApp(

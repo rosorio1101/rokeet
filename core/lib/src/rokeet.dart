@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart' hide Stack;
+import 'package:rokeet/src/network/client/dio/interceptors.dart';
 import 'package:rokeet/src/utils.dart';
 
 import 'actions/actions.dart';
@@ -37,9 +38,9 @@ class RokeetConfig {
 
 class Rokeet {
   Rokeet._(String baseUrl, RokeetConfig config) {
-    httpClient = config.httpClient ?? _buildDefaultClient(baseUrl);
-    api = RokeetApi(httpClient);
     _configure(config);
+    httpClient = config.httpClient ?? _buildDefaultClient(baseUrl, config);
+    api = RokeetApi(httpClient);
   }
 
   @visibleForTesting
@@ -162,10 +163,12 @@ class Rokeet {
     return creator;
   }
 
-  HttpClient _buildDefaultClient(String baseUrl) => DioHttpClient.builder()
-      .withBaseUrl(baseUrl)
-      .addInterceptor(LogInterceptor(requestBody: true, responseBody: true))
-      .build();
+  HttpClient _buildDefaultClient(String baseUrl, RokeetConfig config) =>
+      DioHttpClient.builder()
+          .withBaseUrl(baseUrl)
+          .addInterceptor(RokeetInterceptor(config))
+          .addInterceptor(LogInterceptor(requestBody: true, responseBody: true))
+          .build();
 
   void navigateToStep(String step, {bool force = false}) {
     final context = currentContext;
