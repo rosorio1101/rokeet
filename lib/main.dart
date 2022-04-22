@@ -44,6 +44,8 @@ class MyApp extends StatelessWidget {
     var rokeet = Rokeet.builder()
         .withBaseUrl('http://localhost:3000')
         .withConfig(config)
+        .withHttpClientBuilderProvider(
+            (rokeet) => RokeetHttpClient.builder(rokeet))
         .build();
     return RokeetApp(
       rokeet,
