@@ -2,6 +2,8 @@ import 'dart:io';
 
 import 'package:dio/dio.dart' as Dio;
 
+import '../../../rokeet.dart';
+
 abstract class HttpClient {
   Future<Response> get(String path,
       {Map<String, dynamic>? queryParams, Map<String, dynamic>? headers});
@@ -23,6 +25,15 @@ abstract class HttpClient {
 
   Future<Response> delete(String path,
       {Map<String, dynamic>? queryParams, Map<String, dynamic>? headers});
+}
+
+typedef HttpClientBuilder HttpClientBuilderProvider(Rokeet rokeet);
+
+abstract class HttpClientBuilder {
+  HttpClientBuilder(this.rokeet);
+  final Rokeet rokeet;
+
+  HttpClient build();
 }
 
 class Response<T> extends Dio.Response<T> {

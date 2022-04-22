@@ -1,14 +1,11 @@
 import 'dart:developer';
 
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart' hide Stack;
-import 'package:rokeet/src/network/client/dio/interceptors.dart';
 import 'package:rokeet/src/utils.dart';
 
 import 'actions/actions.dart';
 import 'errors.dart';
 import 'model.dart';
-import 'network/client/dio/dio_http_client.dart';
 import 'network/network.dart';
 import 'pages/pages.dart';
 import 'registry.dart';
@@ -23,8 +20,7 @@ class RokeetConfig {
       this.clientSecret,
       this.widgetBuilders,
       this.actionPerformers,
-      this.pageCreators,
-      this.httpClient});
+      this.pageCreators});
 
   final String? clientId;
   final String? clientSecret;
@@ -32,14 +28,18 @@ class RokeetConfig {
   final Map<String, Map<RActionPerformer, RActionParserFunction>>?
       actionPerformers;
   final Map<String, RPageCreator>? pageCreators;
-  final HttpClient? httpClient;
   final String initStep;
+
+  static RokeetConfig defaultConfig() => RokeetConfig(DEFAULT_INIT_STEP);
 }
 
 class Rokeet {
-  Rokeet._(String baseUrl, RokeetConfig config) {
-    _configure(config);
-    httpClient = config.httpClient ?? _buildDefaultClient(baseUrl, config);
+  Rokeet._(_RokeetBuilder builder) {
+    _configure(builder._config!);
+    this.baseUrl = builder._baseUrl!;
+    httpClient = builder._clientProvider != null
+        ? builder._clientProvider!.call(this).build()
+        : _buildDefaultClient();
     api = RokeetApi(httpClient);
   }
 
@@ -49,6 +49,9 @@ class Rokeet {
   static _RokeetBuilder builder() => _RokeetBuilder();
 
   late RokeetConfig _config;
+
+  RokeetConfig get config => _config;
+
   @visibleForTesting
   late RokeetApi api;
 
@@ -78,6 +81,8 @@ class Rokeet {
   bool get isLoading {
     return api.isLoading;
   }
+
+  late String baseUrl;
 
   void _configure(RokeetConfig config) {
     _config = config;
@@ -163,12 +168,10 @@ class Rokeet {
     return creator;
   }
 
-  HttpClient _buildDefaultClient(String baseUrl, RokeetConfig config) =>
-      DioHttpClient.builder()
-          .withBaseUrl(baseUrl)
-          .addInterceptor(RokeetInterceptor(config))
-          .addInterceptor(LogInterceptor(requestBody: true, responseBody: true))
-          .build();
+  HttpClient _buildDefaultClient() => RokeetHttpClient.builder(this)
+      .addInterceptorFactory(BaseRokeetInterceptor.factory)
+      .addInterceptorFactory(RokeetLogInterceptor.factory)
+      .build();
 
   void navigateToStep(String step, {bool force = false}) {
     final context = currentContext;
@@ -200,6 +203,7 @@ class Rokeet {
 class _RokeetBuilder {
   String? _baseUrl;
   RokeetConfig? _config;
+  HttpClientBuilderProvider? _clientProvider;
   _RokeetBuilder();
 
   _RokeetBuilder withBaseUrl(String baseUrl) {
@@ -212,6 +216,12 @@ class _RokeetBuilder {
     return this;
   }
 
+  _RokeetBuilder withHttpClientBuilderProvider(
+      HttpClientBuilderProvider configurator) {
+    this._clientProvider = configurator;
+    return this;
+  }
+
   Rokeet build() {
     if (_baseUrl == null || _baseUrl?.isEmpty == true) {
       throw NoBaseUrlDefinedError();
@@ -220,6 +230,6 @@ class _RokeetBuilder {
     if (_config == null) {
       _config = RokeetConfig(RokeetConfig.DEFAULT_INIT_STEP);
     }
-    return Rokeet._(this._baseUrl!, this._config!);
+    return Rokeet._(this);
   }
 }

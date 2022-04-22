@@ -2,17 +2,19 @@ import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http_mock_adapter/http_mock_adapter.dart';
-import 'package:rokeet/src/network/client/dio/dio_http_client.dart';
 import 'package:rokeet/src/network/network.dart';
+import 'package:rokeet/src/rokeet.dart';
 
 void main() {
   group("Dio HttpClient", () {
     late HttpClient _httpClient;
     late DioAdapter _dioAdapter;
+    late Rokeet _rokeet;
     setUp(() {
+      _rokeet = Rokeet();
+      _rokeet.baseUrl = "http://localhost";
       _dioAdapter = DioAdapter();
-      _httpClient = DioHttpClient.builder()
-          .withBaseUrl("http://localhost")
+      _httpClient = RokeetHttpClient.builder(_rokeet)
           .withClientAdapter(_dioAdapter)
           .build();
     });
