@@ -4,8 +4,6 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http_mock_adapter/http_mock_adapter.dart';
 import 'package:rokeet/rokeet.dart';
-import 'package:rokeet/src/network/client/dio/dio_http_client.dart';
-import 'package:rokeet/src/network/network.dart';
 import 'package:rokeet/src/network/query_params.dart';
 
 import '../utils.dart';
@@ -16,10 +14,12 @@ void main() {
     late DioAdapter dioAdapter;
     late HttpClient httpClient;
     late RokeetApi api;
+    late Rokeet _rokeet;
     setUp(() {
+      _rokeet = Rokeet();
+      _rokeet.baseUrl = "http://localhost";
       dioAdapter = DioAdapter();
-      httpClient = DioHttpClient.builder()
-          .withBaseUrl("https://localhost")
+      httpClient = RokeetHttpClient.builder(_rokeet)
           .withClientAdapter(dioAdapter)
           .build();
       api = RokeetApi(httpClient);

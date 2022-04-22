@@ -34,7 +34,7 @@ class _AppState extends RState<RokeetApp, AppConfig> {
         }
         var key = data.initStep!;
         RPageCreator creator = rokeet.getPageCreator(key);
-        return creator.call(rokeet, key) as Widget;
+        return creator.call(rokeet, key);
       });
 
   @override
