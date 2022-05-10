@@ -1,4 +1,7 @@
-## [1.3.0] - Version 1.2.0
+## [1.3.0] - Version 1.3.1
+- Improve network package visibility
+
+## [1.3.0] - Version 1.3.0
 - Add HttpClient
 - Improve Rokeet Building
 
