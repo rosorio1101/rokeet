@@ -5,25 +5,25 @@ import 'package:dio/dio.dart' as Dio;
 import '../../../rokeet.dart';
 
 abstract class HttpClient {
-  Future<Response> get(String path,
+  Future<Response<T>> get<T>(String path,
       {Map<String, dynamic>? queryParams, Map<String, dynamic>? headers});
 
-  Future<Response> post(String path,
+  Future<Response<T>> post<T>(String path,
       {dynamic body,
       Map<String, dynamic>? queryParams,
       Map<String, dynamic>? headers});
 
-  Future<Response> put(String path,
+  Future<Response<T>> put<T>(String path,
       {dynamic body,
       Map<String, dynamic>? queryParams,
       Map<String, dynamic>? headers});
 
-  Future<Response> patch(String path,
+  Future<Response<T>> patch<T>(String path,
       {dynamic body,
       Map<String, dynamic>? queryParams,
       Map<String, dynamic>? headers});
 
-  Future<Response> delete(String path,
+  Future<Response<T>> delete<T>(String path,
       {Map<String, dynamic>? queryParams, Map<String, dynamic>? headers});
 }
 

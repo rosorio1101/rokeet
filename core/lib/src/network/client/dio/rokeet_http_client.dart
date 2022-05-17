@@ -28,19 +28,19 @@ class RokeetHttpClient extends HttpClient {
     _dio.interceptors.addAll(interceptos);
   }
 
-  Future<Response> get(String path,
+  Future<Response<T>> get<T>(String path,
       {Map<String, dynamic>? queryParams,
       Map<String, dynamic>? headers}) async {
     try {
       final response = await _dio.get(path,
           queryParameters: queryParams, options: Dio.Options(headers: headers));
-      return Response.from(response);
+      return Response<T>.from(response);
     } on Dio.DioError catch (e) {
       return Response.from(e.response!);
     }
   }
 
-  Future<Response> post(String path,
+  Future<Response<T>> post<T>(String path,
       {dynamic body,
       Map<String, dynamic>? queryParams,
       Map<String, dynamic>? headers}) async {
@@ -49,13 +49,13 @@ class RokeetHttpClient extends HttpClient {
           data: body,
           queryParameters: queryParams,
           options: Dio.Options(headers: headers));
-      return Response.from(response);
+      return Response<T>.from(response);
     } on Dio.DioError catch (e) {
       return Response.from(e.response!);
     }
   }
 
-  Future<Response> put(String path,
+  Future<Response<T>> put<T>(String path,
       {dynamic body,
       Map<String, dynamic>? queryParams,
       Map<String, dynamic>? headers}) async {
@@ -64,13 +64,13 @@ class RokeetHttpClient extends HttpClient {
           data: body,
           queryParameters: queryParams,
           options: Dio.Options(headers: headers));
-      return Response.from(response);
+      return Response<T>.from(response);
     } on Dio.DioError catch (e) {
       return Response.from(e.response!);
     }
   }
 
-  Future<Response> patch(String path,
+  Future<Response<T>> patch<T>(String path,
       {dynamic body,
       Map<String, dynamic>? queryParams,
       Map<String, dynamic>? headers}) async {
@@ -79,19 +79,19 @@ class RokeetHttpClient extends HttpClient {
           data: body,
           queryParameters: queryParams,
           options: Dio.Options(headers: headers));
-      return Response.from(response);
+      return Response<T>.from(response);
     } on Dio.DioError catch (e) {
       return Response.from(e.response!);
     }
   }
 
-  Future<Response> delete(String path,
+  Future<Response<T>> delete<T>(String path,
       {Map<String, dynamic>? queryParams,
       Map<String, dynamic>? headers}) async {
     try {
       final response = await _dio.delete(path,
           queryParameters: queryParams, options: Dio.Options(headers: headers));
-      return Response.from(response);
+      return Response<T>.from(response);
     } on Dio.DioError catch (e) {
       return Response.from(e.response!);
     }
